@@ -1,0 +1,62 @@
+<div class="row">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                <h4>Seleccione el tema</h4>
+                <div class="r-panel-body">
+                    <ul id="themecolors" class="m-t-20">
+                        <li><b>Con el sidebar claro</b></li>
+                        <li><a (click)="changeTheme('default')" class="selector default-theme working">1</a></li>
+                        <li><a (click)="changeTheme('green')" class="selector green-theme">2</a></li>
+                        <li><a (click)="changeTheme('red')" class="selector red-theme">3</a></li>
+                        <li><a (click)="changeTheme('blue')" class="selector blue-theme">4</a></li>
+                        <li><a (click)="changeTheme('purple')" class="selector purple-theme">5</a></li>
+                        <li><a (click)="changeTheme('megna')" class="selector megna-theme">6</a></li>
+
+                        <li class="d-block m-t-30"><b>Con el sidebar oscuro</b></li>
+                        <li><a (click)="changeTheme('default-dark')" class="selector default-dark-theme">7</a></li>
+                        <li><a (click)="changeTheme('green-dark')" class="selector green-dark-theme">8</a></li>
+                        <li><a (click)="changeTheme('red-dark')" class="selector red-dark-theme">9</a></li>
+                        <li><a (click)="changeTheme('blue-dark')" class="selector blue-dark-theme ">10</a></li>
+                        <li><a (click)="changeTheme('purple-dark')" class="selector purple-dark-theme">11</a></li>
+                        <li><a (click)="changeTheme('megna-dark')" class="selector megna-dark-theme">12</a></li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 card" *ngFor="let conf of congenerals">
+
+        <a [routerLink]="['/dashboard/configuracion/edit', conf._id]" class="cursor" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> Edit</a>
+
+        <ul>
+            <li><b>Título:</b> {{conf.titulo}}</li>
+            <li><b>CR:</b> {{conf.cr}}</li>
+            <li><b>Teléfono uno:</b> {{conf.telefono_uno}}</li>
+            <li><b>Teléfono dos:</b> {{conf.telefono_dos}}</li>
+            <li><b>Email uno:</b> {{conf.email_uno}}</li>
+            <li><b>Email dos:</b> {{conf.email_dos}}</li>
+            <li><b>Dirección:</b> {{conf.direccion}}</li>
+            <li><b>Horarios:</b>{{conf.horarios}}</li>
+            <li><b>iframe_mapa (ubicación):</b>
+                <iframe class="mapa" [src]="getMapIframe(conf.iframe_mapa)" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; " allowfullscreen></iframe>
+
+            </li>
+            <li><b>Facebook:</b> {{conf.facebook}}</li>
+            <li><b>Instagram:</b> {{conf.instagram}}</li>
+            <li><b>Youtube:</b> {{conf.youtube}}</li>
+            <li><b>Twitter:</b> {{conf.twitter}}</li>
+            <li><b>Linkedin</b> {{conf.linkedin}}</li>
+            <li><b>Logo:</b> {{conf.logo}}</li>
+            <li><b>Favicon:</b> {{conf.favicon}}</li>
+            <li><b>Modo Paypal Sandbox (pruebas):</b> {{conf.modoPaypal}}</li>
+            <li><b>Sandbox:</b> {{conf.sandbox}}</li>
+            <li><b>Cliente Paypal ID:</b> {{conf.clientePaypal}}</li>
+            <li><b>Rapid Api Key:</b> {{conf.rapidapiKey}}</li>
+        </ul>
+    </div>
+
+
+
+</div>
