@@ -57,7 +57,7 @@ export class PageService {
     return this.http.post(url, page, this.headers);
   }
 
-  actualizarPage(_id:string, page: Page){
+  actualizarPage(page: Page){
     const url = `${base_url}/pages/${page._id}`;
     return this.http.put(url, page, this.headers);
   }

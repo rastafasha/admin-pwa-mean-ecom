@@ -37,9 +37,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let usuario of usuarios">
+                            <tr *ngFor="let usuario of usuarios ">
                                 <td class="text-center">
-                                    <img src="{{usuario.imagenUrl}}" (click)="abrirModal(usuario)" class="img-thumbnail avatar cursor" alt="">
+                                    <!-- <img src="{{usuario.imagenUrl}}" (click)="abrirModal(usuario)" class="img-thumbnail avatar cursor" alt=""> -->
+                                    <img src="{{usuario.imagenUrl}}" [routerLink]="['/dashboard/usuario/',usuario.uid]" class="img-thumbnail avatar cursor" alt="">
                                 </td>
                                 <td>{{usuario.email}}</td>
                                 <td>{{usuario.first_name}}</td>

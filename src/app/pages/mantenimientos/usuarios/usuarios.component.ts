@@ -24,12 +24,16 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   public cargando: boolean = true;
 
   public imgSubs: Subscription;
+  p: number = 1;
+  count: number = 8;
+
+  roles: string[] = ['USER', 'MEDICO', 'ADMIN'];
 
   constructor(
     private usuarioService: UsuarioService,
     private busquedaService: BusquedasService,
     private modalImagenService: ModalImagenService
-  ) { }
+    ) { }
 
   ngOnInit(): void {
     this.loadUsuarios();
@@ -58,6 +62,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
       }
     )
   }
+
 
   cambiarPagina(valor: number){
     this.desde += valor;

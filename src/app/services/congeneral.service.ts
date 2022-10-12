@@ -59,7 +59,7 @@ export class CongeneralService {
     return this.http.post(url, congeneral, this.headers);
   }
 
-  actualizarCongeneral(_id:string, congeneral: Congeneral){
+  actualizarCongeneral(congeneral: Congeneral){
     const url = `${base_url}/congenerals/${congeneral._id}`;
     return this.http.put(url, congeneral, this.headers);
   }

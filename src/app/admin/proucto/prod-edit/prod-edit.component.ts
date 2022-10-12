@@ -122,7 +122,7 @@ export class ProdEditComponent implements OnInit {
     this.categoriaService.cargarCategorias().subscribe(
       resp =>{
         this.listCategorias = resp;
-        console.log(this.listCategorias)
+        console.log(this.listCategorias);
 
       }
     )
@@ -172,7 +172,7 @@ export class ProdEditComponent implements OnInit {
         ...this.productoForm.value,
         _id: this.productoSeleccionado._id
       }
-      this.productoService.actualizarProducto(this.producto._id, this.producto).subscribe(
+      this.productoService.actualizarProducto(data).subscribe(
         resp =>{
           Swal.fire('Actualizado', `${titulo}  actualizado correctamente`, 'success');
         });

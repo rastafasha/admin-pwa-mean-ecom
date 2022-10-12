@@ -57,7 +57,7 @@ export class BlogService {
     return this.http.post(url, blog, this.headers);
   }
 
-  actualizarBlog(_id:string, blog: Blog){
+  actualizarBlog(blog: Blog){
     const url = `${base_url}/blogs/${blog._id}`;
     return this.http.put(url, blog, this.headers);
   }

@@ -156,7 +156,7 @@ export class CursoEditComponent implements OnInit {
         ...this.cursoForm.value,
         _id: this.cursoSeleccionado._id
       }
-      this.cursoService.actualizarCurso(this.cursoSeleccionado._id, this.cursoSeleccionado).subscribe(
+      this.cursoService.actualizarCurso(data).subscribe(
         resp =>{
           Swal.fire('Actualizado', `${titulo}  actualizado correctamente`, 'success');
           console.log(this.cursoSeleccionado);

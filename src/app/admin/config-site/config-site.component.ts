@@ -10,6 +10,7 @@ import { Usuario } from 'src/app/models/usuario.model';
 import { UsuarioService } from '../../services/usuario.service';
 import { Congeneral } from 'src/app/models/congeneral.model';
 import { CongeneralService } from 'src/app/services/congeneral.service';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 interface HtmlInputEvent extends Event{
   target : HTMLInputElement & EventTarget;
@@ -26,7 +27,7 @@ declare var $:any;
 export class ConfigSiteComponent implements OnInit {
 
 
-
+  pageTitle: string;
   public confGeneralForm: FormGroup;
   public congeneral: Congeneral;
   public usuario: Usuario;
@@ -35,7 +36,7 @@ export class ConfigSiteComponent implements OnInit {
   public imagenSubir1: File;
   public imgTemp1: any = null;
 
-  public congeneralSeleccionado: Congeneral;
+  public Editor = ClassicEditor;
 
   constructor(
     private fb: FormBuilder,
@@ -57,6 +58,11 @@ export class ConfigSiteComponent implements OnInit {
 
     this.activatedRoute.params.subscribe( ({id}) => this.cargarConf(id));
 
+    this.validarFormulario();
+
+  }
+
+  validarFormulario(){
     this.confGeneralForm = this.fb.group({
       titulo: ['', Validators.required],
       cr: ['', Validators.required],
@@ -77,112 +83,83 @@ export class ConfigSiteComponent implements OnInit {
       clientePaypal: ['', Validators.required],
       rapidapiKey: [''],
     });
-
-    this.activatedRoute.params.subscribe( ({id}) => this.cargarConf(id));
-
-
-
   }
+
+
 
 
   cargarConf(_id: string){
 
-    if(_id === 'nuevo'){
-      return;
+    if (_id) {
+      this.pageTitle = 'Editing';
+      this.congeneralService.getCongeneralById(_id).subscribe(
+        res => {
+          this.confGeneralForm.patchValue({
+            id: res._id,
+            titulo: res.titulo,
+            cr: res.cr,
+            telefono_uno: res.telefono_uno,
+            telefono_dos: res.telefono_dos,
+            email_uno: res.email_uno,
+            email_dos: res.email_dos,
+            direccion: res.direccion,
+            horarios: res.horarios,
+            iframe_mapa: res.iframe_mapa,
+            facebook: res.facebook,
+            instagram: res.instagram,
+            youtube: res.youtube,
+            twitter: res.twitter,
+            language: res.language,
+            modoPaypal: res.modoPaypal,
+            sandbox: res.sandbox,
+            clientePaypal: res.clientePaypal,
+            rapidapiKey: res.rapidapiKey,
+            user_id: this.usuario.uid,
+            img : res.img,
+            favicon : res.favicon
+          });
+          this.congeneral = res;
+          console.log(this.congeneral);
+        }
+      );
+    } else {
+      this.pageTitle = 'Create ';
     }
-
-    this.congeneralService.getCongeneralById(_id)
-    .pipe(
-      // delay(100)
-      )
-      .subscribe( congeneral =>{
-
-
-      if(!congeneral){
-        return this.router.navigateByUrl(`/dasboard/account-settings`);
-      }
-
-        const {
-          titulo,
-          cr,
-          telefono_uno,
-          telefono_dos,
-          email_uno,
-          email_dos,
-          direccion,
-          horarios,
-          iframe_mapa,
-          facebook,
-          instagram,
-          youtube,
-          twitter,
-          language,
-          modoPaypal,
-          sandbox,
-          clientePaypal,
-          rapidapiKey
-         } = congeneral;
-        this.congeneralSeleccionado = congeneral;
-        this.confGeneralForm.setValue({
-          titulo,
-          cr,
-          telefono_uno,
-          telefono_dos,
-          email_uno,
-          email_dos,
-          direccion,
-          horarios,
-          iframe_mapa,
-          facebook,
-          instagram,
-          youtube,
-          twitter,
-          language,
-          modoPaypal,
-          sandbox,
-          clientePaypal,
-          rapidapiKey
-        });
-
-      });
-
-      console.log(this.congeneral);
 
   }
 
 
 
   updateConfiguracion(){
+    const {titulo, cr, telefono_uno,telefono_dos, email_uno,
+      email_dos, direccion, horarios, iframe_mapa, facebook,
+      instagram, youtube, twitter, language, modoPaypal,
+      sandbox,clientePaypal,rapidapiKey} = this.confGeneralForm.value;
 
-    this.congeneralService.actualizarCongeneral(this.congeneral._id, this.congeneral)
-    .subscribe(resp => {
-      const {titulo, cr, telefono_uno,telefono_dos, email_uno,
-        email_dos, direccion, horarios, iframe_mapa, facebook,
-        instagram, youtube, twitter, language, modoPaypal,
-        sandbox,clientePaypal,rapidapiKey} = this.confGeneralForm.value;
-      this.congeneral.titulo = titulo;
-      this.congeneral.cr = cr;
-      this.congeneral.telefono_uno = telefono_uno;
-      this.congeneral.telefono_dos = telefono_dos;
-      this.congeneral.email_uno = email_uno;
-      this.congeneral.email_dos = email_dos;
-      this.congeneral.direccion = direccion;
-      this.congeneral.horarios = horarios;
-      this.congeneral.iframe_mapa = iframe_mapa;
-      this.congeneral.facebook = facebook;
-      this.congeneral.instagram = instagram;
-      this.congeneral.youtube = youtube;
-      this.congeneral.twitter = twitter;
-      this.congeneral.language = language;
-      this.congeneral.modoPaypal = modoPaypal;
-      this.congeneral.sandbox = sandbox;
-      this.congeneral.clientePaypal = clientePaypal;
-      this.congeneral.rapidapiKey = rapidapiKey;
-      Swal.fire('Guardado', 'Los cambios fueron actualizados', 'success');
-    }, (err)=>{
-      Swal.fire('Error', err.error.msg, 'error');
+      if(this.congeneral._id){
+        //actualizar
+        const data = {
+          ...this.confGeneralForm.value,
+          _id: this.congeneral._id
+        }
+        this.congeneralService.actualizarCongeneral(data).subscribe(
+          resp =>{
+            Swal.fire('Actualizado', `${titulo}  actualizado correctamente`, 'success');
+            console.log(this.congeneral);
+          });
 
-    })
+      }else{
+        return 'No hay Id';
+      }
+      // else{
+      //   //crear
+      //   this.congeneralService.crearCongeneral(this.confGeneralForm.value)
+      //   .subscribe( (resp: any) =>{
+      //     Swal.fire('Creado', `${titulo} creado correctamente`, 'success');
+      //     this.router.navigateByUrl(`/dashboard/account-settings`);
+      //   })
+      // }
+
 
   }
 
@@ -204,9 +181,9 @@ export class ConfigSiteComponent implements OnInit {
 
   subirImagen(){
     this.fileUploadService
-    .actualizarFoto(this.imagenSubir, 'congenerals', this.congeneralSeleccionado._id)
+    .actualizarFoto(this.imagenSubir, 'congenerals', this.congeneral._id)
     .then(img => {
-      this.congeneralSeleccionado.logo = img;
+      this.congeneral.img = img;
       Swal.fire('Guardado', 'La imagen fue actualizada', 'success');
 
     }).catch(err =>{
@@ -233,9 +210,9 @@ export class ConfigSiteComponent implements OnInit {
 
   subirImagen1(){
     this.fileUploadService
-    .actualizarFoto(this.imagenSubir1, 'congenerals', this.congeneralSeleccionado._id)
+    .actualizarFoto(this.imagenSubir1, 'congenerals', this.congeneral._id)
     .then(img => {
-      this.congeneralSeleccionado.favicon = img;
+      this.congeneral.favicon = img;
       Swal.fire('Guardado', 'La imagen fue actualizada', 'success');
 
     }).catch(err =>{

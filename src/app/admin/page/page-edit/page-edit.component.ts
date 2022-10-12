@@ -149,7 +149,7 @@ export class PageEditComponent implements OnInit {
         ...this.pageForm.value,
         _id: this.pageSeleccionado._id
       }
-      this.pageService.actualizarPage(this.pageSeleccionado._id, this.pageSeleccionado).subscribe(
+      this.pageService.actualizarPage(data).subscribe(
         resp =>{
           Swal.fire('Actualizado', `${titulo}  actualizado correctamente`, 'success');
           console.log(this.pageSeleccionado);

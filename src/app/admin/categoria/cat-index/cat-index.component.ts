@@ -70,19 +70,6 @@ export class CatIndexComponent implements OnInit {
       }
     )
   }
-  cambiarPagina(valor: number){
-    this.desde += valor;
-
-    if(this.desde < 0){
-      this.desde = 0
-    }else if( this.desde > this.totalCategorias){
-      this.desde -= valor;
-    }
-
-    this.loadCategorias();
-
-
-  }
 
   guardarCambios(categoria: Categoria){
     this.categoriaService.actualizarCategoria(categoria)

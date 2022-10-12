@@ -23,7 +23,7 @@ export class Congeneral{
     public rapidapiKey: string,
     public sandbox: string,
     public clientePaypal: string,
-    public logo?: string,
+    public img?: string,
     public favicon?: string,
     public _id?:string
 
@@ -32,12 +32,12 @@ export class Congeneral{
 
   get imagenUrl(){
 
-    if(!this.logo){
+    if(!this.img){
       return `${base_url}/uploads/congenerals/no-image.jpg`;
-    } else if(this.logo.includes('https')){
-      return this.logo;
-    } else if(this.logo){
-      return `${base_url}/uploads/congenerals/${this.logo}`;
+    } else if(this.img.includes('https')){
+      return this.img;
+    } else if(this.img){
+      return `${base_url}/uploads/congenerals/${this.img}`;
     }else {
       return `${base_url}/uploads/congenerals/no-image.jpg`;
     }

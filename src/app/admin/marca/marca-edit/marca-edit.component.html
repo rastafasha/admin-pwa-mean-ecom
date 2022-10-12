@@ -6,19 +6,18 @@
                 <h4 class="card-title">{{pageTitle}}</h4>
                 <h6 class="card-subtitle">Ajustes</h6>
                 <button class="btn btn-outline-danger" href="javascript:void(0)" (click)="goBack()">Volver</button>
-                <form class="form p-t-20" [formGroup]="marcaForm" (submit)="updateMarca()">
+                <form class="form p-t-20 form-horizontal form-material" [formGroup]="marcaForm" (submit)="updateMarca()">
                     <div class="form-group">
                         <label for="exampleInputuname">Nombre</label>
                         <div class="input-group">
-                            <div class="input-group-addon"><i class="ti-user"></i></div>
+
                             <input type="text" formControlName="nombre" class="form-control" id="exampleInputuname" placeholder="nombre">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputApellido">Descripcion</label>
-                        <div class="input-group">
-                            <div class="input-group-addon"><i class="ti-user"></i></div>
-                            <input type="text" formControlName="descripcion" class="form-control" id="exampleInputApellido" placeholder="apellido">
+                        <label for="exampleInputApellido">Descripción</label>
+                        <div class="col-12">
+                            <ckeditor [editor]="Editor" formControlName="descripcion" data="<p>Hello, world!</p>" required></ckeditor>
                         </div>
                     </div>
                     <button type="submit" [disabled]="marcaForm.invalid" class="btn btn-success waves-effect waves-light m-r-10 btn-block">

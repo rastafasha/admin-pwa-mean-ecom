@@ -56,7 +56,7 @@ export class CursoService {
     return this.http.post(url, curso, this.headers);
   }
 
-  actualizarCurso(_id:string, curso: Curso){
+  actualizarCurso( curso: Curso){
     const url = `${base_url}/cursos/${curso._id}`;
     return this.http.put(url, curso, this.headers);
   }

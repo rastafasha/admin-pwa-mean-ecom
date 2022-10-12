@@ -45,6 +45,7 @@ import { BlogIndexComponent } from '../admin/blog/blog-index/blog-index.componen
 import { BlogEditComponent } from '../admin/blog/blog-edit/blog-edit.component';
 import { VideoIndexComponent } from '../admin/curso/video-index/video-index.component';
 import { VideoEditComponent } from '../admin/curso/video-edit/video-edit.component';
+import { UsuarioComponent } from './mantenimientos/usuario/usuario.component';
 
 
 const childRoutes: Routes = [
@@ -52,6 +53,7 @@ const childRoutes: Routes = [
             { path: 'account-settings', component: AccountSettingComponent, data:{tituloPage:'Ajustes de Cuenta'} },
             { path: 'buscar/:termino', component: BusquedaComponent, data:{tituloPage:'Busquedas'} },
             { path: 'perfil', component: PerfilComponent, data:{tituloPage:'Perfil'} },
+            { path: 'usuario/:id', component: UsuarioComponent, data:{tituloPage:'Perfil Usuario'} },
 
             //tienda
 

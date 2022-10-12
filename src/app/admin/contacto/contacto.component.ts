@@ -48,8 +48,13 @@ export class ContactoComponent implements OnInit {
   }
 
   eliminarMensaje(contacto: Contacto){
-    this._contactoService.borrarMessage(contacto._id);
+    this._contactoService.borrarMessage(contacto._id)
+    .subscribe( resp => {
+      this.ngOnInit();
+      Swal.fire('Borrado', contacto.nombres, 'success')
+    })
 
   }
+
 
 }

@@ -139,7 +139,7 @@ export class BlogEditComponent implements OnInit {
 
 
 
-  updateBlog(){debugger
+  updateBlog(){
 
     const {titulo, descripcion,categoria, isFeatured,
       video_review, } = this.blogForm.value;
@@ -150,7 +150,7 @@ export class BlogEditComponent implements OnInit {
         ...this.blogForm.value,
         _id: this.blogSeleccionado._id
       }
-      this.blogService.actualizarBlog(this.blogSeleccionado._id, this.blogSeleccionado).subscribe(
+      this.blogService.actualizarBlog(data).subscribe(
         resp =>{
           Swal.fire('Actualizado', `${titulo}  actualizado correctamente`, 'success');
           console.log(this.blogSeleccionado);

@@ -70,7 +70,7 @@ export class ProductoService {
     return this.http.post(url, producto, this.headers);
   }
 
-  actualizarProducto(_id:string, producto: Producto){
+  actualizarProducto(producto: Producto){
     const url = `${base_url}/productos/${producto._id}`;
     return this.http.put(url, producto, this.headers);
   }

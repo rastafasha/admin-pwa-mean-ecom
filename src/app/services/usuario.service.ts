@@ -189,9 +189,28 @@ export class UsuarioService {
     return this.http.get(url, this.headers)
   }
 
+  getUserById(_id: string){
+    const url = `${base_url}/usuarios/${_id}`;
+    return this.http.get<any>(url, this.headers)
+      .pipe(
+        map((resp:{ok: boolean, usuario: Usuario}) => resp.usuario)
+        );
+
+  }
+
   get_user_data():Observable<any>{
     const url = `${base_url}/usuarios`;
     return this.http.get(url, this.headers)
+  }
+
+  getUsers(){
+
+    const url = `${base_url}/usuarios`;
+    return this.http.get<any>(url, this.headers)
+      .pipe(
+        map((resp:{ok: boolean, usuarios: Usuario[]}) => resp.usuarios)
+      )
+
   }
 
 

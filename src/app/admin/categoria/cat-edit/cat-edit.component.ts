@@ -11,6 +11,7 @@ import { Usuario } from 'src/app/models/usuario.model';
 import { CategoriaService } from 'src/app/services/categoria.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { IconosService } from 'src/app/services/iconos.service';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 
 @Component({
@@ -33,6 +34,7 @@ export class CatEditComponent implements OnInit {
   listIcons;
   state_banner:boolean;
 
+  public Editor = ClassicEditor;
   public categoriaSeleccionado: Categoria;
 
   constructor(
@@ -65,11 +67,11 @@ export class CatEditComponent implements OnInit {
 
     if(this.categoriaSeleccionado){
       //actualizar
-      this.pageTitle = 'Create Marca';
+      this.pageTitle = 'Create Categoría';
 
     }else{
       //crear
-      this.pageTitle = 'Edit Marca';
+      this.pageTitle = 'Edit Categoría';
     }
 
 
@@ -125,7 +127,7 @@ export class CatEditComponent implements OnInit {
       }
       this.categoriaService.actualizarCategoria(data).subscribe(
         resp =>{
-          Swal.fire('Actualizado', `${nombre} ${subcategorias} actualizado correctamente`, 'success');
+          Swal.fire('Actualizado', `${nombre} actualizado correctamente`, 'success');
         });
 
     }else{
