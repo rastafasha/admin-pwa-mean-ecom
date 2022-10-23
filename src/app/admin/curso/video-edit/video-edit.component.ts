@@ -11,6 +11,7 @@ import { Usuario } from 'src/app/models/usuario.model';
 
 import { Videogaleria } from 'src/app/models/videogaleria.model';
 import { VideogaleriaService } from 'src/app/services/videgaleria.service';
+import { Curso } from 'src/app/models/curso.model';
 
 
 interface HtmlInputEvent extends Event{
@@ -29,8 +30,14 @@ export class VideoEditComponent implements OnInit {
 
 
   public videoForm: FormGroup;
-  public video: Videogaleria;
   public usuario: Usuario;
+  public curso: Curso;
+  public galeriavideo;
+  public select_curso;
+
+  public titulo;
+  public video;
+  public id;
 
   pageTitle: string;
 
@@ -49,10 +56,11 @@ export class VideoEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe( ({id}) => this.iniciarFormulario(id));
-
     window.scrollTo(0,0);
     this.validarFormulario();
+    this.activatedRoute.params.subscribe( ({id}) => this.loadVideo(id));
+    this.activatedRoute.params.subscribe( ({id}) => this.iniciarFormulario(id));
+
 
     if(this.videoSeleccionado){
       //actualizar
@@ -62,8 +70,6 @@ export class VideoEditComponent implements OnInit {
       //crear
       this.pageTitle = 'Edit Video';
     }
-
-
 
   }
 
@@ -75,17 +81,30 @@ export class VideoEditComponent implements OnInit {
     })
   }
 
+  loadVideo(_id: string){
+    this.videogaleriaService.get_video(_id).subscribe(
+      response =>{
+        this.galeriavideo = response;
+        console.log(this.galeriavideo);
+      },
+      error=>{
 
-  iniciarFormulario(_id: string){
+      }
+    );
 
-    if (_id) {
+  }
+
+
+  iniciarFormulario(id: string){debugger
+
+
+    if(!id !== null && id !== undefined){
       this.pageTitle = 'Edit Video';
-      this.videogaleriaService.get_video(_id).subscribe(
+      this.videogaleriaService.get_video(id).subscribe(
         res => {
           this.videoForm.patchValue({
             id: res._id,
             titulo: res.titulo,
-            curso: res.curso,
             video: res.video,
           });
           this.videoSeleccionado = res;
@@ -102,29 +121,17 @@ export class VideoEditComponent implements OnInit {
 
 
 
-  updateCurso(){
+  updateCurso(videoForm){
 
-    const {titulo, curso,video } = this.videoForm.value;
+    // const {titulo, curso, video } = this.videoForm.value;
 
-    if(this.videoSeleccionado){
-      //actualizar
-      const data = {
-        ...this.videoForm.value,
-        _id: this.videoSeleccionado._id
-      }
-      this.videogaleriaService.actualizarCurso(this.videoSeleccionado._id, this.videoSeleccionado).subscribe(
+    if(videoForm.valid){
+      this.videogaleriaService.actualizarCurso(this.videoSeleccionado._id, {titulo: this.titulo, video: this.video, curso:this.curso._id,}).subscribe(
         resp =>{
-          Swal.fire('Actualizado', `${titulo}  actualizado correctamente`, 'success');
+          Swal.fire('Actualizado', ` actualizado correctamente`, 'success');
           console.log(this.videoSeleccionado);
         });
 
-    }else{
-      //crear
-      this.videogaleriaService.create(this.videoForm.value)
-      .subscribe( (resp: any) =>{
-        Swal.fire('Creado', `${titulo} creado correctamente`, 'success');
-        this.router.navigateByUrl(`/dashboard/curso`);
-      })
     }
 
   }

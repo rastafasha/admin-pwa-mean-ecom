@@ -46,6 +46,7 @@ import { BlogEditComponent } from '../admin/blog/blog-edit/blog-edit.component';
 import { VideoIndexComponent } from '../admin/curso/video-index/video-index.component';
 import { VideoEditComponent } from '../admin/curso/video-edit/video-edit.component';
 import { UsuarioComponent } from './mantenimientos/usuario/usuario.component';
+import { VideoCreateComponent } from '../admin/curso/video-create/video-create.component';
 
 
 const childRoutes: Routes = [
@@ -75,7 +76,7 @@ const childRoutes: Routes = [
 
             { path: 'curso/curso-video/:id', component: VideoIndexComponent, data:{tituloPage:'Video '} },
             { path: 'curso/curso-video/edit/:id', component: VideoEditComponent, data:{tituloPage:'Videos Edit '} },
-            { path: 'curso/curso-video/create', component: VideoEditComponent, data:{tituloPage:'Videos Create '} },
+            { path: 'curso/curso-video/create/:id', component: VideoCreateComponent, data:{tituloPage:'Videos Create '} },
 
             { path: 'marca', component: MarcaIndexComponent, data:{tituloPage:'Marcas '} },
             { path: 'marca/edit/:id', component: MarcaEditComponent, data:{tituloPage:'Marca Edit '} },

@@ -6,7 +6,7 @@ import { GaleriaService } from 'src/app/services/galeria.service';
 import {environment} from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { UsuarioService } from '../../../services/usuario.service';
-
+import { ProductoService } from 'src/app/services/producto.service';
 declare var jQuery:any;
 declare var $:any;
 
@@ -25,8 +25,13 @@ export class GaleriaProductoComponent implements OnInit {
   public count_img;
   public identity;
 
+  public galerias : any ;
+  public galeria : Array<any> = [];
+  public select_producto;
+  public first_img;
+
   public imgSelect : String | ArrayBuffer;
-  public productoSeleccionado: Producto;
+  public producto:Producto;
   public imagenSubir: File;
 
 
@@ -34,11 +39,12 @@ export class GaleriaProductoComponent implements OnInit {
   count: number = 8;
 
   constructor(
-    private _galeriaService : GaleriaService,
-    private _route : ActivatedRoute,
+    private galeriaService : GaleriaService,
     private _router : Router,
     private _userService: UsuarioService,
     private fileUploadService: FileUploadService,
+    private activatedRoute: ActivatedRoute,
+    private productoService: ProductoService,
 
   ) {
     this.url = environment.baseUrl;
@@ -46,21 +52,9 @@ export class GaleriaProductoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._route.params.subscribe(
-      params=>{
-        this.id = params['id'];
-        this._galeriaService.get_cupon(this.id).subscribe(
-          response=>{
-            this.imagenes = response.imagenes;
-            this.count_img = this.imagenes.length;
-          },
-          error=>{
 
-          }
-        )
-      }
-    );
-
+    this.activatedRoute.params.subscribe( ({id}) => this.get_galeria(id));
+    this.activatedRoute.params.subscribe( ({id}) => this.cargarProducto(id));
   }
 
   close_toast(){
@@ -87,32 +81,79 @@ export class GaleriaProductoComponent implements OnInit {
     this.files.splice(this.files.indexOf(event), 1);
   }
 
-  onSubmit(galeriaForm){
+  get_galeria(_id: string){
+    this.galeria = [];
+    this.select_producto = _id;
 
-      let data = {
-        imagenes : this.files,
-        producto : this.id
-      }
 
-      this._galeriaService.registro(data).subscribe(
+    if(_id){
+      this.galeriaService.find_by_product(this.select_producto).subscribe(
         response =>{
-          this.close_modal();
-          this.listar();
 
-
+          response.galeria.forEach((element,index) => {
+            if(index == 0){
+              this.first_img = element.imagen;
+            }
+              this.galeria.push({_id:element._id,imagen : element.imagen});
+          });
+          console.log(this.galeria);
         },
         error=>{
-          this.msm_error = true;
+
+
         }
       );
+    }else{
+      return;
+    }
   }
 
 
+  cargarProducto(_id: string){
+    this.productoService.getProductoById(_id).subscribe(
+      response =>{
+        this.producto = response;
+        console.log(this.producto);
+      },
+      error=>{
+
+      }
+    );
+  }
+
+  onSubmit(galeriaForm){
+
+      const data = {
+        imagenes : this.files,
+        producto : this.producto._id
+      }
+
+      if(this.producto){
+        this.galeriaService.registro(data).subscribe(
+          response =>{
+            this.subirImagen();
+            this.close_modal();
+            this.ngOnInit();
+
+
+          },
+          error=>{
+            this.msm_error = true;
+          }
+        );
+      }
+
+  }
+
+
+
+
+
   listar(){
-    this._route.params.subscribe(
+    this.activatedRoute.params.subscribe(
       params=>{
         this.id = params['id'];
-        this._galeriaService.get_cupon(this.id).subscribe(
+        this.galeriaService.get_cupon(this.id).subscribe(
           response=>{
             this.imagenes = response.imagenes;
             this.count_img = this.imagenes.length;
@@ -127,7 +168,7 @@ export class GaleriaProductoComponent implements OnInit {
 
 
   eliminar(id){
-    this._galeriaService.eliminar(id).subscribe(
+    this.galeriaService.eliminar(id).subscribe(
       response=>{
 
         $('#modal-'+id).modal('hide');
@@ -143,8 +184,8 @@ export class GaleriaProductoComponent implements OnInit {
 
   subirImagen(){
     this.fileUploadService
-    .actualizarFoto(this.imagenSubir, 'galerias', this.productoSeleccionado._id)
-    .then(img => { this.productoSeleccionado.img = img;
+    .actualizarFoto(this.imagenSubir, 'galerias', this.producto._id)
+    .then(img => { this.producto.img = img;
       Swal.fire('Guardado', 'La imagen fue actualizada', 'success');
 
     }).catch(err =>{

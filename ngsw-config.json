@@ -10,7 +10,9 @@
                     "/index.html",
                     "/manifest.webmanifest",
                     "/*.css",
-                    "/*.js"
+                    "/*.scss",
+                    "/*.js",
+                    "/assets/**"
                 ]
             }
         },

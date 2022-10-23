@@ -60,6 +60,15 @@ export class ColorService {
       );
   }
 
+  colorByProduct(id:string){
+    const url = `${base_url}/colors/color_producto/find/${id}`;
+    return this.http.get<any>(url, this.headers)
+      .pipe(
+        map((resp:{ok: boolean, color: Color}) => resp.color)
+        );
+  }
+
+
 
   crearColor(data:any):Observable<any>{
     const url = `${base_url}/colors`;

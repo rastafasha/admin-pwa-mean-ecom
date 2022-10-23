@@ -33,6 +33,8 @@ export class ColorComponent implements OnInit {
   public titulo;
   public msm_error;
 
+  public select_producto;
+
   constructor(
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
@@ -64,7 +66,25 @@ export class ColorComponent implements OnInit {
       color: ['', Validators.required],
     })
 
+    this.activatedRoute.params.subscribe( ({id}) => this.get_color(id));
+  }
 
+  get_color(_id: string){
+    this.color = [];
+    this.select_producto = _id;
+
+
+    if(_id){
+      this._colorService.colorByProduct(this.select_producto).subscribe(
+        response =>{
+
+          this.color = response;
+          console.log(this.color);
+        }
+      );
+    }else{
+      return;
+    }
   }
 
 
@@ -101,6 +121,7 @@ export class ColorComponent implements OnInit {
           this.titulo = '';
           this.listar();
           this.msm_error = '';
+          this.ngOnInit();
         },
         error=>{
           this.msm_error = 'Complete correctamente el formulario por favor.'
@@ -113,11 +134,12 @@ export class ColorComponent implements OnInit {
   }
 
 
-  eliminarColor(color: Color){
-    this._colorService.borrarColor(color._id)
+  eliminarColor(_id: string){
+    this._colorService.borrarColor(_id)
     .subscribe( resp => {
-      Swal.fire('Borrado', color.titulo, 'success')
-    })
+      Swal.fire('Borrado', this.color.titulo, 'success')
+      this.ngOnInit();
+    });
 
   }
 

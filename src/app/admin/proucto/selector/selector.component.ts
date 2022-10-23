@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { Location } from '@angular/common';
 
 import { UsuarioService } from '../../../services/usuario.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -17,75 +18,88 @@ export class SelectorComponent implements OnInit {
 
   public id;
   public selectores;
+  public selector;
   public count_selec;
   public page;
   public pageSize = 12;
   public input_selector;
   public identity;
 
+  public select_producto;
+
+  selectorForm: FormGroup;
+  public titulo;
+  public msm_error;
+
   constructor(
+    private fb: FormBuilder,
     private _selectorService : SelectorService,
-    private _route : ActivatedRoute,
-    private _router : Router,
     private _userService: UsuarioService,
     private location: Location,
+    private activatedRoute: ActivatedRoute,
   ) {
     this.identity = this._userService.usuario;
   }
 
   ngOnInit(): void {
 
+    this.selectorForm = this.fb.group({
+      titulo: ['', Validators.required],
+      producto: ['', Validators.required],
+    })
+
+    this.activatedRoute.params.subscribe( ({id}) => this.get_selector(id));
 
   }
 
-  listar(){
-    this._route.params.subscribe(
-      params=>{
-        this.id = params['id'];
-        this._selectorService.listar(this.id).subscribe(
-          response=>{
-            this.selectores = response.selectores;
-            this.count_selec = this.selectores.length;
-            this.page = 1;
-            console.log(this.selectores);
+
+  get_selector(_id: string){
+    this.selector = [];
+    this.select_producto = _id;
 
 
-          },
-          error=>{
-
-          }
-        )
-      }
-    );
-  }
-
-  onSubmit(selectForm){
-    if(selectForm.valid){
-      this._selectorService.crearSelector({titulo: this.input_selector,producto:this.id}).subscribe(
+    if(_id){
+      this._selectorService.selectorByProduct(this.select_producto).subscribe(
         response =>{
-          this.input_selector = '';
-          this.listar();
+
+          this.selector = response;
+          console.log(this.selector);
+        }
+      );
+    }else{
+      return;
+    }
+  }
+
+  onSubmit(selectorForm){
+
+
+    if(selectorForm.valid){
+      this._selectorService.crearSelector({titulo: this.titulo,producto:this.id}).subscribe(
+        response =>{
+          this.selector
+          this.titulo = '';
+          this.msm_error = '';
+          this.ngOnInit();
         },
         error=>{
-
+          this.msm_error = 'Complete correctamente el formulario por favor.'
         }
       )
 
     }else{
-
+      this.msm_error = 'Complete correctamente el formulario por favor.'
     }
   }
 
-  eliminar(id){
-    this._selectorService.borrarSelector(id).subscribe(
-      response=>{
-        this.listar();
-      },
-      error =>{
-
-      }
-    );
+  eliminar(_id:string){
+    this._selectorService.borrarSelector(_id)
+    .subscribe( resp => {
+      Swal.fire('Borrado', this.selector.titulo, 'success')
+      this.ngOnInit();
+    });
   }
+
 
   goBack() {
     this.location.back(); // <-- go back to previous location on cancel

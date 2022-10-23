@@ -12,6 +12,8 @@ const base_url = environment.baseUrl;
 })
 export class ProductoService {
 
+  public producto: Producto;
+
 
   constructor(
     private http: HttpClient

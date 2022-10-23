@@ -11,6 +11,12 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { Usuario } from 'src/app/models/usuario.model';
 import { ModalImagenService } from 'src/app/services/modal-imagen.service';
 
+import { Direccion } from 'src/app/models/direccion.model';
+import { DireccionService } from 'src/app/services/direccion.service';
+
+import { VentaService } from 'src/app/services/venta.service';
+import {Venta, Cancelacion} from '../../../models/ventas.model';
+
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 interface HtmlInputEvent extends Event{
@@ -33,8 +39,12 @@ export class UsuarioComponent implements OnInit {
   public imgTemp: any = null;
   public file :File;
   public imgSelect : String | ArrayBuffer;
-  public listMarcas;
-  public listCategorias;
+
+
+  public direcciones : Direccion[];
+
+  public cancelacion: Cancelacion;
+  public ventas: Venta;
 
   banner: string;
   pageTitle: string;
@@ -50,6 +60,8 @@ export class UsuarioComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private location: Location,
+    private _direccionService: DireccionService,
+    private ventaService: VentaService,
   ) {
     this.usuario = usuarioService.usuario;
     const base_url = environment.baseUrl;
@@ -57,14 +69,15 @@ export class UsuarioComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe( ({id}) => this.cargarUsuario(id));
+    this.activatedRoute.params.subscribe( ({id}) => this.listarDirecciones(id));
+    this.activatedRoute.params.subscribe( ({id}) => this.listar_ordenes(id));
+    this.activatedRoute.params.subscribe( ({id}) => this.listar_cancelacion(id));
 
     window.scrollTo(0,0);
     this.validarFormulario();
 
-
-
-
   }
+
 
   validarFormulario(){
     this.usuarioForm = this.fb.group({
@@ -133,6 +146,41 @@ export class UsuarioComponent implements OnInit {
   }
 
 
+  listarDirecciones(_id: string){
+    this._direccionService.listarUsuario(_id).subscribe(
+      response =>{
+        this.direcciones = response.direcciones;
+        console.log(this.direcciones);
+      },
+      error=>{
+
+      }
+    );
+  }
+
+  listar_ordenes(_id: string){
+    this.ventaService.listarporUser(_id).subscribe(
+      response=>{
+        this.ventas = response.ventas;
+        console.log(this.ventas);
+      },
+      error=>{
+
+      }
+    );
+  }
+
+  listar_cancelacion(_id: string){
+    this.ventaService.listarCancelacionporUser(_id).subscribe(
+      response=>{
+        this.cancelacion = response.cancelacion;
+        console.log(this.cancelacion);
+      },
+      error=>{
+
+      }
+    );
+  }
 
   goBack() {
     this.location.back(); // <-- go back to previous location on cancel

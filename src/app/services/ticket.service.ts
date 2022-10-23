@@ -36,7 +36,7 @@ export class TicketService {
     console.log(data);
 
     let headers = new HttpHeaders().set('Content-Type','application/json');
-    return this._http.post(this.url + '/tickets/ticket_registro/registro',data,{headers:headers})
+    return this._http.post(this.url + '/tickets/',data,{headers:headers})
   }
 
   send(data:any):Observable<any>{
@@ -47,7 +47,7 @@ export class TicketService {
 
   listar(id:string):Observable<any>{
     let headers = new HttpHeaders().set('Content-Type','application/json');
-    return this._http.get(this.url + '/tickets/ticket_listar/listar/'+id,{headers:headers})
+    return this._http.get(this.url + '/tickets/'+id,{headers:headers})
 
 
   }
@@ -59,7 +59,7 @@ export class TicketService {
 
   get_ticket(id:string):Observable<any>{
     let headers = new HttpHeaders().set('Content-Type','application/json');
-    return this._http.get(this.url + '/tickets/ticket_data/one/'+id,{headers:headers})
+    return this._http.get(this.url + '/tickets/'+id,{headers:headers})
   }
 
   get_tickets_admin(){

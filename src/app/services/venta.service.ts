@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import {environment} from 'src/environments/environment';
 import { HttpClient,HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
-
+import{Usuario} from '../models/usuario.model';
+import{Producto} from '../models/producto.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,23 +15,44 @@ export class VentaService {
   clientIdPaypal = environment.clientIdPaypal;
   sandboxPaypal = environment.sandboxPaypal;
 
+  user:Usuario;
+  producto:Producto;
+
   constructor(
     private _http : HttpClient
   ) {
     this.url = environment.baseUrl;
-    this.url = environment.baseUrl;
 
+  }
+
+  get token():string{
+    return localStorage.getItem('token') || '';
+  }
+
+
+  get headers(){
+    return{
+      headers: {
+        'x-token': this.token
+      }
+    }
   }
 
   registro(data:any):Observable<any>{
     let headers = new HttpHeaders().set('Content-Type','application/json');
-    return this._http.post(this.url+'/ventas',data,{headers:headers});
+    return this._http.post(this.url+'/ventas/venta/registro',data,{headers:headers});
   }
 
   listar(id:string):Observable<any>{
     let headers = new HttpHeaders().set('Content-Type','application/json');
-    return this._http.get(this.url+'/ventas/venta/data/'+id,{headers:headers});
+    return this._http.get(this.url+'/ventas/'+id,{headers:headers});
   }
+
+  listarporUser(id:string):Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type','application/json');
+    return this._http.get(this.url+'/ventas/user_order/'+id,{headers:headers});
+  }
+
 
   detalle(id:string):Observable<any>{
     let headers = new HttpHeaders().set('Content-Type','application/json');
@@ -45,6 +67,11 @@ export class VentaService {
   update_envio(id:string):Observable<any>{
     let headers = new HttpHeaders().set('Content-Type','application/json');
     return this._http.get(this.url+'/ventas/venta_enviado/update/'+id,{headers:headers});
+  }
+
+  listarCancelacionporUser(id:string):Observable<any>{
+    let headers = new HttpHeaders().set('Content-Type','application/json');
+    return this._http.get(this.url+'/ventas/user_cancelacion/'+id,{headers:headers});
   }
 
   evaluar_cancelacion(id:string):Observable<any>{

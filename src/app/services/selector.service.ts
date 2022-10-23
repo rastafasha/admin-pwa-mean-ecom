@@ -41,6 +41,14 @@ export class SelectorService {
 
   }
 
+  selectorByProduct(id:string){
+    const url = `${base_url}/selectors/selector_producto/find/${id}`;
+    return this.http.get<any>(url, this.headers)
+      .pipe(
+        map((resp:{ok: boolean, selector: Selector}) => resp.selector)
+        );
+  }
+
   crearSelector(data:any):Observable<any>{
     const url = `${base_url}/selectors`;
     return this.http.post(url, data, this.headers);

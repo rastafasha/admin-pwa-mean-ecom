@@ -47,19 +47,19 @@ export class VideogaleriaService {
   }
 
   find_by_curso(_id:string):Observable<any>{
-    const url = `${base_url}/galeriavideos/galeria_curso/find/${_id}`;
+    const url = `${base_url}/galeriavideos/galeria_curso/${_id}`;
     return this.http.get(url, this.headers);
   }
 
 
-  create(videogaleria: Videogaleria){
-    const url = `${base_url}/galeriavideos`;
-    return this.http.post(url, videogaleria, this.headers);
+  create(data:any){
+    const url = `${base_url}/galeriavideos/galeria/crear`;
+    return this.http.post(url, data, this.headers);
   }
 
-  actualizarCurso(_id:string, videogaleria: Videogaleria){
-    const url = `${base_url}/galeriavideos/${videogaleria._id}`;
-    return this.http.put(url, videogaleria, this.headers);
+  actualizarCurso(_id:string, data:any){
+    const url = `${base_url}/galeriavideos/${_id}`;
+    return this.http.put(url, data, this.headers);
   }
 
 

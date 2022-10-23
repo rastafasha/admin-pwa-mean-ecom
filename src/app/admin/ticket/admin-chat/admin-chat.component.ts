@@ -104,7 +104,7 @@ export class AdminChatComponent implements OnInit {
   }
 
   listar(idusuario){
-    this._ticketService.data('5ef640b75ee066601c6ed1c0',idusuario).subscribe(
+    this._ticketService.data('627ec91529881af6cb899f79',idusuario).subscribe(
       response=>{
 
         response.mensajes.forEach(element => {
@@ -130,7 +130,7 @@ export class AdminChatComponent implements OnInit {
       if(this.close_ticket){
         //  enviar y cerrar ticket
         let data={
-          de:'5ef640b75ee066601c6ed1c0',
+          de:'627ec91529881af6cb899f79',
           para:this.usuario._id,
           msm:msmForm.value.msm,
           ticket:this.id,
@@ -153,7 +153,7 @@ export class AdminChatComponent implements OnInit {
       }
       else{
         let data={
-          de:'5ef640b75ee066601c6ed1c0',
+          de:'627ec91529881af6cb899f79',
           para:this.usuario._id,
           msm:msmForm.value.msm,
           ticket:this.id,

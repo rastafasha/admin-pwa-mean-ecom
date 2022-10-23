@@ -1,14 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
-import { delay } from 'rxjs/operators';
-
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { BusquedasService } from '../../../services/busquedas.service';
 import { Videogaleria } from '../../../models/videogaleria.model';
 import { VideogaleriaService } from '../../../services/videgaleria.service';
 import { Curso } from 'src/app/models/curso.model';
 import { CursoService } from 'src/app/services/curso.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 declare var jQuery:any;
 declare var $:any;
@@ -21,10 +20,12 @@ declare var $:any;
 export class VideoIndexComponent implements OnInit {
 
   public cursos: Curso[] =[];
+  public curso: Curso;
   public galeriavideos: Videogaleria[]=[];
   public galeriavideo: any = {};
   public cargando: boolean = true;
 
+  public select_curso;
 
   p: number = 1;
   count: number = 8;
@@ -38,47 +39,45 @@ export class VideoIndexComponent implements OnInit {
     private busquedaService: BusquedasService,
     private activatedRoute : ActivatedRoute,
     private router : Router,
+    private location: Location,
+    private _sanitizer: DomSanitizer,
   ) { }
 
   ngOnInit(): void {
-    this.loadVideos();
-    this.loadCursos();
+    this.activatedRoute.params.subscribe( ({id}) => this.loadCursos(id));
+    this.activatedRoute.params.subscribe( ({id}) => this.loadVideos(id));
+  }
 
-    this.activatedRoute.params.subscribe(
-      params=>{
-        this._id = params['id'];
-        this.videoService.find_by_curso(this._id).subscribe(
-          res=>{
-            this.galeriavideo = res;
-            console.log(this.galeriavideo);
-          },
-          error=>{
+  loadCursos(_id: string){
+    this.cursoService.getCursoById(_id).subscribe(
+      response =>{
+        this.curso = response;
+        console.log(this.curso);
+      },
+      error=>{
 
-          }
-        )
       }
     );
-  }
-
-
-  loadVideos(){
-    this.cargando = true;
-    this.videoService.getVideos().subscribe(
-      galeriavideos => {
-        this.cargando = false;
-        this.galeriavideos = galeriavideos;
-        console.log(this.galeriavideos);
-      }
-    )
 
   }
-  loadCursos(){
-    this.cargando = true;
-    this.cursoService.getCursos().subscribe(
-      cursos => {
-        this.cursos = cursos;
-      }
-    )
+
+
+  loadVideos(_id: string){
+
+    // this.cargando = true;
+
+    if(_id){
+      this.videoService.find_by_curso(_id).subscribe(
+        response =>{
+
+          this.galeriavideo = response.galeriavideo;
+          this.cargando = false;
+          console.log(this.galeriavideo);
+        }
+      );
+    }else{
+      this.msm_error = 'Este Curso No tiene videos adicionales'
+    }
 
   }
 
@@ -88,8 +87,8 @@ export class VideoIndexComponent implements OnInit {
   eliminarVideo(_id: string){
     this.videoService.eliminar(this.galeriavideo._id)
     .subscribe( resp => {
-      this.loadVideos();
       Swal.fire('Borrado', this.galeriavideo.titulo, 'success')
+      this.ngOnInit();
     })
 
   }
@@ -114,7 +113,7 @@ export class VideoIndexComponent implements OnInit {
       response=>{
         $('#desactivar-'+id).modal('hide');
         $('.modal-backdrop').removeClass('show');
-        this.loadCursos();
+        this.ngOnInit();
       },
       error=>{
         this.msm_error = 'No se pudo desactivar el curso, vuelva a intenter.'
@@ -128,7 +127,7 @@ export class VideoIndexComponent implements OnInit {
 
         $('#activar-'+id).modal('hide');
         $('.modal-backdrop').removeClass('show');
-        this.loadCursos();
+        this.ngOnInit();
       },
       error=>{
 
@@ -137,5 +136,22 @@ export class VideoIndexComponent implements OnInit {
       }
     )
   }
+
+  goBack() {
+    this.location.back(); // <-- go back to previous location on cancel
+  }
+
+  getVideoIframe(url) {
+    var video, results;
+
+    if (url === null) {
+        return '';
+    }
+    results = url.match('[\\?&]v=([^&#]*)');
+    video   = (results === null) ? url : results[1];
+
+    return this._sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + video);
+}
+
 
 }

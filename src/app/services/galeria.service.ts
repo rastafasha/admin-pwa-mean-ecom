@@ -39,7 +39,7 @@ export class GaleriaService {
 
 
   registro(data:any):Observable<any>{
-    const url = `${base_url}/galerias`;
+    const url = `${base_url}/galerias/galeria/registro`;
     return this.http.post(url, data, this.headers);
   }
 
