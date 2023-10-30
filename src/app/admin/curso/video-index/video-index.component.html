@@ -24,7 +24,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-6">
-                        <h4 class="card-title">Videos: </h4>
+                        <h4 class="card-title">Videos: ({{ videocursos.length}})</h4>
                         <h6 class="card-subtitle">Videos registrados en la app</h6>
                     </div>
                     <div class="col-3">
@@ -34,7 +34,7 @@
                     </div>
                     <div class="col-3">
                         <div class="text-right">
-                            <button class="btn btn-primary" [routerLink]="['/dashboard/curso/curso-video/create/',curso._id]">
+                            <button class="btn btn-primary" [routerLink]="['/dashboard/curso/curso-video/create']">
                         <i class="fa fa-pencil"></i>
                         Crear Video
                       </button>
@@ -50,6 +50,7 @@
                             <tr>
 
                                 <th>Video</th>
+                                <th>Curso</th>
                                 <th>Titulo</th>
                                 <th>Status</th>
                                 <th>Activar</th>
@@ -59,21 +60,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let gal of galeriavideo |  paginate: { itemsPerPage: count, currentPage: p }">
+                            <tr *ngFor="let gal of videocursos |  paginate: { itemsPerPage: count, currentPage: p }">
                                 <td class="text-center">
                                     <img src="http://img.youtube.com/vi/{{gal.video}}/2.jpg" class=" cursor" alt="{{gal.titulo}}">
                                 </td>
+                                <td>{{gal.curso.titulo}}</td>
                                 <td>{{gal.titulo}}</td>
                                 <td>
                                     <div class="font-size-sm mb-4">
                                         <span class="text-heading font-weight-medium mr-1">Estado:</span>
-                                        <span class="badge badge-secondary badge-shadow" *ngIf="gal.status == 'Edición'">{{gal.status}}</span>
+                                        <span class="badge badge-secondary badge-shadow" *ngIf="gal.status == 'Edicion'">{{gal.status}}</span>
                                         <span class="badge badge-success badge-shadow" *ngIf="gal.status == 'Activo'">{{gal.status}}</span>
                                         <span class="badge badge-primary badge-shadow" *ngIf="gal.status == 'Desactivado'">{{gal.status}}</span>
                                     </div>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-accent" *ngIf="gal.status == 'Edición' || gal.status == 'Desactivado'" data-toggle="modal" [attr.data-target]="'#activar-'+gal._id"><span class="czi-check"></span> Activar</button>
+                                    <button type="button" class="btn btn-accent" *ngIf="gal.status == 'Edicion' || gal.status == 'Desactivado'" data-toggle="modal" [attr.data-target]="'#activar-'+gal._id"><span class="czi-check"></span> Activar</button>
 
                                     <div class="modal fade" [attr.id]="'activar-'+gal._id" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -114,7 +116,7 @@
 
 
 
-                                    <span class="text-muted" *ngIf="gal.status == 'Edición'" style="font-size: 13px;">Este video aún se encuentra en edición.</span>
+                                    <span class="text-muted" *ngIf="gal.status == 'Edicion'" style="font-size: 13px;">Este video aún se encuentra en edición.</span>
                                     <span class="text-muted" *ngIf="gal.status == 'Desactivado'" style="font-size: 13px;">Este video aún no está disponible en la tienda.</span>
 
                                 </td>
@@ -127,7 +129,7 @@
                                     <span class="czi-settings"></span> Opciones
                                   </button>
                                         <div class="dropdown-menu">
-                                            <!-- <a [routerLink]="['/dashboard/curso/curso-video/edit',gal._id]" class="dropdown-item"><span class="czi-edit-alt"></span> &nbsp;Editar</a> -->
+                                            <a [routerLink]="['/dashboard/curso/curso-video/edit',gal._id]" class="dropdown-item"><span class="czi-edit-alt"></span> &nbsp;Editar</a>
                                             <a (click)="eliminarVideo(gal)" class="dropdown-item"><span class="czi-delete-document"></span> &nbsp;Eliminar</a>
                                         </div>
                                     </div>

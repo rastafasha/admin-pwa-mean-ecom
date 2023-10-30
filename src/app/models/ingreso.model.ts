@@ -16,13 +16,13 @@ export class Ingreso {
   get imagenUrl(){
 
     if(!this.img){
-      return `${base_url}/uploads/ingresos/factura/no-image.jpg`;
+      return `${base_url}/uploads/ingresos/no-image.jpg`;
     } else if(this.img.includes('https')){
       return this.img;
     } else if(this.img){
-      return `${base_url}/uploads/ingresos/factura/${this.img}`;
+      return `${base_url}/uploads/ingresos/${this.img}`;
     }else {
-      return `${base_url}/uploads/ingresos/factura/no-image.jpg`;
+      return `${base_url}/uploads/ingresos/no-image.jpg`;
     }
 
   }

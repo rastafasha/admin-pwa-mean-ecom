@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 
-const base_url = environment.baseUrl;
+const base_url = environment.mediaUrl;
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +15,13 @@ export class FileUploadService {
   async actualizarFoto(
     archivo: File,
     tipo: 'usuarios'|'marcas' |'productos' | 'congenerals'|'promocions' |'galerias'|'ingresos'
-    |'blogs' |'pages' |'cursos' |'sliders' | 'categorias',
+    |'blogs' |'pages' |'cursos' |'sliders' | 'categorias' |'facturas',
     id: string
   ){
 
     try{
 
-      const url = `${base_url}/uploads/${tipo}/${id}`;
+      const url = `${base_url}/${tipo}/${id}`;
       const formData = new FormData();
       formData.append('imagen', archivo);
 

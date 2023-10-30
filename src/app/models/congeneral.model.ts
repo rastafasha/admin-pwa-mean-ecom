@@ -1,6 +1,7 @@
 import { environment } from "src/environments/environment";
 
 const base_url = environment.baseUrl;
+const mediaUrl = environment.mediaUrl;
 
 export class Congeneral{
   banner: any;
@@ -33,13 +34,13 @@ export class Congeneral{
   get imagenUrl(){
 
     if(!this.img){
-      return `${base_url}/uploads/congenerals/no-image.jpg`;
+      return `${mediaUrl}/uploads/congenerals/no-image.jpg`;
     } else if(this.img.includes('https')){
       return this.img;
     } else if(this.img){
-      return `${base_url}/uploads/congenerals/${this.img}`;
+      return `${mediaUrl}/uploads/congenerals/${this.img}`;
     }else {
-      return `${base_url}/uploads/congenerals/no-image.jpg`;
+      return `${mediaUrl}/uploads/congenerals/no-image.jpg`;
     }
 
   }

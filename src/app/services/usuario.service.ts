@@ -105,7 +105,7 @@ export class UsuarioService {
   }
 
   crearUsuario(formData: RegisterForm){
-    return this.http.post(`${base_url}/usuarios`, formData)
+    return this.http.post(`${base_url}/usuarios/registro`, formData)
     .pipe(
       tap((resp: any) => {
         this.guardarLocalStorage(resp.token, resp.menu);

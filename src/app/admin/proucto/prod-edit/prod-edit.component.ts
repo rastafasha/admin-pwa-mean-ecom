@@ -92,7 +92,7 @@ export class ProdEditComponent implements OnInit {
       nombre_selector: ['',Validators.required],
       marca: ['',Validators.required],
       video_review: ['',Validators.required],
-      isFeatured: [''],
+      isFeatured: ['',Validators.required],
     })
 
     if(this.productoSeleccionado){
@@ -128,7 +128,7 @@ export class ProdEditComponent implements OnInit {
     )
   }
 
-  cargarProducto(_id: string){
+  cargarProducto(_id: string){debugger
 
     if(_id === 'nuevo'){
       return;
@@ -141,7 +141,7 @@ export class ProdEditComponent implements OnInit {
       .subscribe( producto =>{
 
 
-      if(!producto){
+      if(!_id){
         return this.router.navigateByUrl(`/dasboard/producto`);
       }
 

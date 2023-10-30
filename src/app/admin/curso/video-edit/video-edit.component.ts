@@ -12,6 +12,7 @@ import { Usuario } from 'src/app/models/usuario.model';
 import { Videogaleria } from 'src/app/models/videogaleria.model';
 import { VideogaleriaService } from 'src/app/services/videgaleria.service';
 import { Curso } from 'src/app/models/curso.model';
+import { CursoService } from 'src/app/services/curso.service';
 
 
 interface HtmlInputEvent extends Event{
@@ -31,13 +32,13 @@ export class VideoEditComponent implements OnInit {
 
   public videoForm: FormGroup;
   public usuario: Usuario;
-  public curso: Curso;
   public galeriavideo;
   public select_curso;
 
   public titulo;
   public video;
   public id;
+  public cursos: Curso[] =[];
 
   pageTitle: string;
 
@@ -49,7 +50,8 @@ export class VideoEditComponent implements OnInit {
     private usuarioService: UsuarioService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private cursoService: CursoService,
   ) {
     this.usuario = usuarioService.usuario;
     const base_url = environment.baseUrl;
@@ -58,7 +60,8 @@ export class VideoEditComponent implements OnInit {
   ngOnInit(): void {
     window.scrollTo(0,0);
     this.validarFormulario();
-    this.activatedRoute.params.subscribe( ({id}) => this.loadVideo(id));
+    this.loadCursos();
+    // this.activatedRoute.params.subscribe( ({id}) => this.loadVideo(id));
     this.activatedRoute.params.subscribe( ({id}) => this.iniciarFormulario(id));
 
 
@@ -77,7 +80,10 @@ export class VideoEditComponent implements OnInit {
     this.videoForm = this.fb.group({
       titulo: ['',Validators.required],
       curso: ['',Validators.required],
-      video: ['',Validators.required]
+      urlYoutube: [''],
+      urlVimeo: [''],
+      fileVideo: [''],
+      status: [''],
     })
   }
 
@@ -95,7 +101,7 @@ export class VideoEditComponent implements OnInit {
   }
 
 
-  iniciarFormulario(id: string){debugger
+  iniciarFormulario(id: string){
 
 
     if(!id !== null && id !== undefined){
@@ -105,7 +111,11 @@ export class VideoEditComponent implements OnInit {
           this.videoForm.patchValue({
             id: res._id,
             titulo: res.titulo,
-            video: res.video,
+            urlYoutube: res.urlYoutube,
+            urlVimeo: res.urlVimeo,
+            fileVideo: res.fileVideo,
+            curso: res.curso,
+            status: res.status,
           });
           this.videoSeleccionado = res;
           console.log(this.videoSeleccionado);
@@ -117,21 +127,43 @@ export class VideoEditComponent implements OnInit {
 
   }
 
+  loadCursos(){
+    // this.cargando = true;
+    this.cursoService.getCursos().subscribe(
+      resp => {
+        // this.cargando = false;
+        this.cursos = resp;
+        console.log(this.cursos);
+      }
+    )
+
+  }
 
 
 
+  updateCurso(){
 
-  updateCurso(videoForm){
+    const {titulo, urlYoutube,urlVimeo,fileVideo,status, curso } = this.videoForm.value;
 
-    // const {titulo, curso, video } = this.videoForm.value;
-
-    if(videoForm.valid){
-      this.videogaleriaService.actualizarCurso(this.videoSeleccionado._id, {titulo: this.titulo, video: this.video, curso:this.curso._id,}).subscribe(
+    if(this.videoSeleccionado){
+      //actualizar
+      const data = {
+        ...this.videoForm.value,
+        _id: this.videoSeleccionado._id
+      }
+      this.videogaleriaService.actualizarVideo(data).subscribe(
         resp =>{
-          Swal.fire('Actualizado', ` actualizado correctamente`, 'success');
+          Swal.fire('Actualizado', `${titulo}  actualizado correctamente`, 'success');
           console.log(this.videoSeleccionado);
         });
 
+    }else{
+      //crear
+      this.videogaleriaService.create(this.videoForm.value)
+      .subscribe( (resp: any) =>{
+        Swal.fire('Creado', `${titulo} creado correctamente`, 'success');
+        this.router.navigateByUrl(`/dashboard/curso/curso-video`);
+      })
     }
 
   }

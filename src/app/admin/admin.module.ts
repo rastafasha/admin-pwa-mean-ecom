@@ -54,7 +54,6 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { VideoCreateComponent } from './curso/video-create/video-create.component';
 
 @NgModule({
   declarations: [
@@ -94,7 +93,6 @@ import { VideoCreateComponent } from './curso/video-create/video-create.componen
     CursoEditComponent,
     VideoIndexComponent,
     VideoEditComponent,
-    VideoCreateComponent
   ],
   exports: [
     MarcaIndexComponent,
@@ -133,7 +131,6 @@ import { VideoCreateComponent } from './curso/video-create/video-create.componen
     CursoEditComponent,
     VideoIndexComponent,
     VideoEditComponent,
-    VideoCreateComponent
   ],
 
 

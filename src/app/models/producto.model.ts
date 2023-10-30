@@ -1,6 +1,6 @@
 import { environment } from "src/environments/environment";
 
-const base_url = environment.baseUrl;
+const base_url = environment.mediaUrl;
 
 export class Producto{
   constructor(
@@ -25,13 +25,13 @@ export class Producto{
   get imagenUrl(){
 
     if(!this.img){
-      return `${base_url}/uploads/no-image.jpg`;
+      return `${base_url}/no-image.jpg`;
     } else if(this.img.includes('https')){
       return this.img;
     } else if(this.img){
-      return `${base_url}/uploads/productos/${this.img}`;
+      return `${base_url}/productos/${this.img}`;
     }else {
-      return `${base_url}/uploads/productos/no-image.jpg`;
+      return `${base_url}/productos/no-image.jpg`;
     }
 
   }

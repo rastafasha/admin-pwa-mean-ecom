@@ -9,6 +9,7 @@ import { CategoriaService } from '../../../services/categoria.service';
 import { Producto } from '../../../models/producto.model';
 import { ProductoService } from '../../../services/producto.service';
 import { ModalImagenService } from '../../../services/modal-imagen.service';
+import { environment } from 'src/environments/environment';
 
 declare var jQuery:any;
 declare var $:any;
@@ -22,7 +23,7 @@ export class ProdIndexComponent implements OnInit {
   public productos: Producto[] =[];
   public categorias: Categoria[] =[];
   public cargando: boolean = true;
-
+  public url;
   public totalProductos: number = 0;
   public desde: number = 0;
 
@@ -39,7 +40,9 @@ export class ProdIndexComponent implements OnInit {
     private categoriaService: CategoriaService,
     private modalImagenService: ModalImagenService,
     private busquedaService: BusquedasService,
-  ) { }
+  ) {
+    this.url = environment.baseUrl;
+   }
 
   ngOnInit(): void {
 

@@ -4,8 +4,9 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:3201/api',
-  soketServer : 'http://localhost:3201',
+  baseUrl: 'http://localhost:3001/api',
+  mediaUrl: 'http://localhost:3001/api/uploads',
+  soketServer : 'http://localhost:3001',
   rapidapiKey: 'a7036a3222mshc2920e679cd1cafp141e56jsn81cbe707ac15',
   rapidapiHost: 'apidojo-17track-v1.p.rapidapi.com',
   clientIdPaypal: 'AXlazeNsZ0CmjfJIronSzcqzw4hLHkcoVEM5fO5BY7AbD-_GhKoKezRcavq6-T4kQuRqaTXFB_VXmheG',

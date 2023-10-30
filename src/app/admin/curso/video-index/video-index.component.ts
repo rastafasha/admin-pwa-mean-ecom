@@ -21,7 +21,7 @@ export class VideoIndexComponent implements OnInit {
 
   public cursos: Curso[] =[];
   public curso: Curso;
-  public galeriavideos: Videogaleria[]=[];
+  public videocursos: Videogaleria[]=[];
   public galeriavideo: any = {};
   public cargando: boolean = true;
 
@@ -44,8 +44,9 @@ export class VideoIndexComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe( ({id}) => this.loadCursos(id));
-    this.activatedRoute.params.subscribe( ({id}) => this.loadVideos(id));
+    this.loadVideos();
+    // this.activatedRoute.params.subscribe( ({id}) => this.loadCursos(id));
+    // this.activatedRoute.params.subscribe( ({id}) => this.loadVideos(id));
   }
 
   loadCursos(_id: string){
@@ -62,22 +63,16 @@ export class VideoIndexComponent implements OnInit {
   }
 
 
-  loadVideos(_id: string){
+  loadVideos(){
 
-    // this.cargando = true;
+    this.videoService.getVideos().subscribe(
+      response =>{
 
-    if(_id){
-      this.videoService.find_by_curso(_id).subscribe(
-        response =>{
-
-          this.galeriavideo = response.galeriavideo;
-          this.cargando = false;
-          console.log(this.galeriavideo);
-        }
-      );
-    }else{
-      this.msm_error = 'Este Curso No tiene videos adicionales'
-    }
+        this.videocursos = response;
+        this.cargando = false;
+        console.log(this.videocursos);
+      }
+    );
 
   }
 

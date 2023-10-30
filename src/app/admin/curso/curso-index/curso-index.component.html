@@ -33,7 +33,11 @@
                         <i class="fa fa-pencil"></i>
                         Crear Curso
                       </button>
-                        </div>
+                            <button class="btn btn-primary" [routerLink]="['/dashboard/curso/curso-video']">
+                        <i class="fa fa-pencil"></i>
+                        Videos
+                      </button>
+                    </div>
                     </div>
                     <!-- <div class="col-3">
                         <div class="text-right">
@@ -144,7 +148,7 @@
                                   </button>
                                         <div class="dropdown-menu">
                                             <a [routerLink]="['/dashboard/curso/edit',curso._id]" class="dropdown-item"><span class="czi-edit-alt"></span> &nbsp;Editar</a>
-                                            <a [routerLink]="['/dashboard/curso/curso-video', curso._id]" class="dropdown-item"><span class="czi-edit-alt"></span> &nbsp;Ver videos</a>
+                                           
                                             <a (click)="eliminarCurso(curso)" class="dropdown-item"><span class="czi-delete-document"></span> &nbsp;Eliminar</a>
                                         </div>
                                     </div>

@@ -1,4 +1,5 @@
 import { environment } from "src/environments/environment";
+import { Videogaleria } from "./videogaleria.model";
 
 const base_url = environment.baseUrl;
 
@@ -14,6 +15,7 @@ export class Curso{
         public categoria: string,
         public isFeatured: boolean,
         public status: string,
+        public videos: Videogaleria,
         public img?: string,
         public _id?: string
 

@@ -1,15 +1,19 @@
+import { Curso } from "./curso.model";
 
 
 export class Videogaleria{
   constructor(
 
-        public video: string,
-        public titulo: string,
-        public curso: string,
-        public createdAt: Date,
-        public updatedAt: Date,
-        public img?: string,
-        public _id?: string
+    public urlYoutube: string,
+    public urlVimeo: string,
+    public titulo: string,
+    public fileVideo: string,
+    public curso: Curso,
+    public status: string,
+    public updatedAt: Date,
+    public createdAt: Date,
+    public img?: string,
+    public _id?: string
 
   ){}
 

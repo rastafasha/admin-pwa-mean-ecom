@@ -12,6 +12,8 @@ const base_url = environment.baseUrl;
 })
 export class VideogaleriaService {
 
+  videocursos: Videogaleria
+
   constructor(
     private http : HttpClient,
   ) {
@@ -31,50 +33,51 @@ export class VideogaleriaService {
   }
 
   getVideos(){
-    const url = `${base_url}/galeriavideos`;
+    const url = `${base_url}/videocursos`;
     return this.http.get<any>(url, this.headers)
       .pipe(
-        map((resp:{ok: boolean, videogalerias: Videogaleria[]}) => resp.videogalerias)
+        map((resp:{ok: boolean, videocursos: Videogaleria[]}) => resp.videocursos)
       )
     }
 
   get_video(_id: string){
-    const url = `${base_url}/galeriavideos/${_id}`;
+    const url = `${base_url}/videocursos/${_id}`;
     return this.http.get<any>(url, this.headers)
     .pipe(
-      map((resp:{ok: boolean, videogaleria: Videogaleria}) => resp.videogaleria)
+      map((resp:{ok: boolean, videocurso: Videogaleria}) => resp.videocurso)
       );
   }
 
   find_by_curso(_id:string):Observable<any>{
-    const url = `${base_url}/galeriavideos/galeria_curso/${_id}`;
+    const url = `${base_url}/videocursos/bycurso/${_id}`;
     return this.http.get(url, this.headers);
   }
 
 
   create(data:any){
-    const url = `${base_url}/galeriavideos/galeria/crear`;
+    const url = `${base_url}/videocursos/crear`;
     return this.http.post(url, data, this.headers);
   }
 
-  actualizarCurso(_id:string, data:any){
-    const url = `${base_url}/galeriavideos/${_id}`;
-    return this.http.put(url, data, this.headers);
+  actualizarVideo(videogaleria:Videogaleria){
+    const url = `${base_url}/videocursos/update/${videogaleria._id}`;
+    return this.http.put(url, videogaleria, this.headers);
+
   }
 
 
   eliminar(_id:string){
-    const url = `${base_url}/galeriavideos/${_id}`;
+    const url = `${base_url}/videocursos/borrar/${_id}`;
     return this.http.delete(url, this.headers);
   }
 
   desactivar(id:string):Observable<any>{
-    const url = `${base_url}/galeriavideos/curso_admin/admin/desactivar/`+id;
+    const url = `${base_url}/videocursos/desactivar/`+id;
     return this.http.get(url,  this.headers);
   }
 
   activar(id:string):Observable<any>{
-    const url = `${base_url}/galeriavideos/curso_admin/admin/activar/`+id;
+    const url = `${base_url}/videocursos/activar/`+id;
     return this.http.get(url,  this.headers);
   }
 }

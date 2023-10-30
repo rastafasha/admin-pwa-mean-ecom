@@ -101,7 +101,7 @@
                             <h3 class="widget-title">Productos</h3>
                             <div class="media align-items-center py-2 border-bottom" *ngFor="let item of detalle">
                                 <a class="d-block mr-2" [routerLink]="['/producto/',item.producto.slug]">
-                                    <img width="64" [src]="url+'productos_img_data/resources/thumbnails/'+item.producto.poster" />
+                                    <img width="64" [src]="url+'/productos_img_data/resources/thumbnails/'+item.producto.poster" />
                                 </a>
                                 <div class="media-body">
                                     <h6 class="widget-product-title"><a [routerLink]="['/producto/',item.producto.slug]">{{item.producto.titulo}}</a></h6>
