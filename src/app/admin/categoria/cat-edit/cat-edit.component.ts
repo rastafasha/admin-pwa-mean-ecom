@@ -13,6 +13,12 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { IconosService } from 'src/app/services/iconos.service';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
+interface HtmlInputEvent extends Event{
+  target : HTMLInputElement & EventTarget;
+}
+
+declare var jQuery:any;
+declare var $:any;
 
 @Component({
   selector: 'app-cat-edit',
@@ -55,33 +61,35 @@ export class CatEditComponent implements OnInit {
     window.scrollTo(0,0);
 
     this.cargar_iconos();
-
+    
+    this.validarFormulario();
+    if(this.categoriaSeleccionado){
+      //actualizar
     this.activatedRoute.params.subscribe( ({id}) => this.cargarCategoria(id));
+    this.pageTitle = 'Edit Categoría';
+    
+    }else{
+      //crear
+      this.pageTitle = 'Create Categoría';
+      }
 
+
+  }
+
+  validarFormulario(){
     this.categoriaForm = this.fb.group({
       nombre: ['', Validators.required],
       subcategorias: ['', Validators.required],
       icono: ['', Validators.required],
       state_banner: ['false', Validators.required]
     })
-
-    if(this.categoriaSeleccionado){
-      //actualizar
-      this.pageTitle = 'Create Categoría';
-
-    }else{
-      //crear
-      this.pageTitle = 'Edit Categoría';
-    }
-
-
   }
 
   cargar_iconos(){
     this._iconoService.getIcons().subscribe(
-      resp =>{
+      (resp:any) =>{
         this.listIcons = resp;
-        console.log(this.listIcons.iconos)
+        // console.log(this.listIcons.iconos)
 
       }
     )
@@ -135,7 +143,7 @@ export class CatEditComponent implements OnInit {
       this.categoriaService.crearCategoria(this.categoriaForm.value)
       .subscribe( (resp: any) =>{
         Swal.fire('Creado', `${nombre} creado correctamente`, 'success');
-        this.router.navigateByUrl(`/dashboard/catgoria`);
+        this.router.navigateByUrl(`/dashboard/categoria`);
       })
     }
 

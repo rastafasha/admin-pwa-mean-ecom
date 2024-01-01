@@ -97,11 +97,11 @@ export class ProdEditComponent implements OnInit {
 
     if(this.productoSeleccionado){
       //actualizar
-      this.pageTitle = 'Create Producto';
-
+      this.pageTitle = 'Edit Producto';
+      
     }else{
       //crear
-      this.pageTitle = 'Edit Producto';
+      this.pageTitle = 'Create Producto';
     }
 
 
@@ -128,7 +128,7 @@ export class ProdEditComponent implements OnInit {
     )
   }
 
-  cargarProducto(_id: string){debugger
+  cargarProducto(_id: string){
 
     if(_id === 'nuevo'){
       return;
@@ -161,7 +161,7 @@ export class ProdEditComponent implements OnInit {
 
 
 
-  updateProducto(){
+  updateProducto(){debugger
 
     const {titulo, precio_antes,info_short,detalle, stock,categoria,subcategoria,
       nombre_selector,marca,video_review,precio_ahora, isFeatured } = this.productoForm.value;

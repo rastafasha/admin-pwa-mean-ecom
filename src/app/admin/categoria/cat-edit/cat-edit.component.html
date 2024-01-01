@@ -18,7 +18,8 @@
                         <label for="exampleInputsubcategorias">Subcategoría</label>
 
                         <div class="col-12">
-                            <ckeditor [editor]="Editor" formControlName="subcategorias" data="<p>Hello, world!</p>" required></ckeditor>
+                            <textarea name="subcategorias" class="form-control" formControlName="subcategorias" id=""></textarea>
+                            <!-- <ckeditor [editor]="Editor" formControlName="subcategorias" data="<p>Hello, world!</p>" required></ckeditor> -->
                         </div>
                     </div>
 
@@ -56,7 +57,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6" *ngIf="categoriaSeleccionado">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">imagen</h4>
