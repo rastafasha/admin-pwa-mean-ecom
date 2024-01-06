@@ -78,7 +78,7 @@
                                         <th>Eliminar</th>
                                     </tr>
                                 </thead>
-                                <tbody *ngFor="let item of cupones">
+                                <tbody *ngFor="let item of cupones | orderBy:'createdAt, desc'">
                                     <tr>
 
                                         <td>

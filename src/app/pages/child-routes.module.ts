@@ -46,6 +46,7 @@ import { BlogEditComponent } from '../admin/blog/blog-edit/blog-edit.component';
 import { VideoIndexComponent } from '../admin/curso/video-index/video-index.component';
 import { VideoEditComponent } from '../admin/curso/video-edit/video-edit.component';
 import { UsuarioComponent } from './mantenimientos/usuario/usuario.component';
+import { ContactodetailsComponent } from '../admin/contacto/contactodetails/contactodetails.component';
 
 
 const childRoutes: Routes = [
@@ -85,6 +86,7 @@ const childRoutes: Routes = [
             { path: 'categoria/edit/:id', component: CatEditComponent, data:{tituloPage:'Categoría Edit '} },
             { path: 'categoria/create', component: CatEditComponent, data:{tituloPage:'Categoría Create '} },
 
+            { path: 'configuracion', component: ConfigSiteComponent, data:{tituloPage:'Configuracion '} },
             { path: 'configuracion/edit/:id', component: ConfigSiteComponent, data:{tituloPage:'Configuracion '} },
             { path: 'configuracion/create', component: ConfigSiteComponent, data:{tituloPage:'Producto'} },
 
@@ -100,11 +102,13 @@ const childRoutes: Routes = [
             { path: 'cupon', component: CuponComponent, data:{tituloPage:'Cupon'} },
 
             { path: 'promocion', component: PromocionComponent, data:{tituloPage:'Promocion '} },
+            { path: 'promocion/create', component: PromoeditComponent, data:{tituloPage:'Promocion '} },
             { path: 'promocion/edit/:id', component: PromoeditComponent, data:{tituloPage:'Promocion '} },
 
             { path: 'postal', component: PostalComponent, data:{tituloPage:'Postal'} },
 
             { path: 'contacto', component: ContactoComponent, data:{tituloPage:'Contacto'} },
+            { path: 'contacto/:id', component: ContactodetailsComponent, data:{tituloPage:'Contacto'} },
 
             {path: 'tikets/modulo', component: AdminTicketComponent, data:{tituloPage:'Ticket'}},
             {path: 'tikets/modulo/chat/:id', component: AdminChatComponent, data:{tituloPage:'Ticket'}},

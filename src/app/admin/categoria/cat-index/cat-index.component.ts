@@ -8,6 +8,8 @@ import { CategoriaService } from '../../../services/categoria.service';
 import { ModalImagenService } from '../../../services/modal-imagen.service';
 import { IconosService } from 'src/app/services/iconos.service';
 
+declare var jQuery:any;
+declare var $:any;
 @Component({
   selector: 'app-cat-index',
   templateUrl: './cat-index.component.html',
@@ -26,6 +28,8 @@ export class CatIndexComponent implements OnInit {
 
   public imgSubs: Subscription;
   listIcons;
+
+  public msm_error;
 
   constructor(
     private categoriaService: CategoriaService,
@@ -101,6 +105,35 @@ export class CatIndexComponent implements OnInit {
     .subscribe( resultados => {
       resultados;
     })
+  }
+
+  desactivar(id){
+    this.categoriaService.desactivar(id).subscribe(
+      response=>{
+        $('#desactivar-'+id).modal('hide');
+        $('.modal-backdrop').removeClass('show');
+        this.loadCategorias();
+      },
+      error=>{
+        this.msm_error = 'No se pudo desactivar el producto, vuelva a intenter.'
+      }
+    )
+  }
+
+  activar(id){
+    this.categoriaService.activar(id).subscribe(
+      response=>{
+
+        $('#activar-'+id).modal('hide');
+        $('.modal-backdrop').removeClass('show');
+        this.loadCategorias();
+      },
+      error=>{
+
+
+        this.msm_error = 'No se pudo activar el producto, vuelva a intenter.'
+      }
+    )
   }
 
 }

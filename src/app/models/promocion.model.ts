@@ -10,6 +10,7 @@ export class Promocion {
     public end: string,
     public enlace: string,
     public estado: boolean,
+    public colorfondo: string,
     public img?: string,
     public _id?: string
   ){}

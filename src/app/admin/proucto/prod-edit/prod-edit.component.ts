@@ -17,6 +17,8 @@ import { Producto } from 'src/app/models/producto.model';
 import { ProductoService } from 'src/app/services/producto.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { ColorService } from 'src/app/services/color.service';
+import { SelectorService } from 'src/app/services/selector.service';
 
 
 interface HtmlInputEvent extends Event{
@@ -47,6 +49,9 @@ export class ProdEditComponent implements OnInit {
   public imgSelect : String | ArrayBuffer;
   public listMarcas;
   public listCategorias;
+  public colores:any;
+  public color_to_cart:any;
+  public selectores:any;
 
   banner: string;
   pageTitle: string;
@@ -66,6 +71,8 @@ export class ProdEditComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private location: Location,
+    private _colorService: ColorService,
+    private _selectorService: SelectorService,
     private sanitizer: DomSanitizer
   ) {
     this.usuario = usuarioService.usuario;
@@ -74,6 +81,7 @@ export class ProdEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe( ({id}) => this.cargarProducto(id));
+    this.activatedRoute.params.subscribe( ({id}) => this.listConfig(id));
 
     window.scrollTo(0,0);
     this.getMarca();
@@ -91,13 +99,16 @@ export class ProdEditComponent implements OnInit {
       subcategoria: ['',Validators.required],
       nombre_selector: ['',Validators.required],
       marca: ['',Validators.required],
-      video_review: ['',Validators.required],
-      isFeatured: ['',Validators.required],
+      video_review: ['',],
+      isFeatured: [''],
     })
 
     if(this.productoSeleccionado){
       //actualizar
       this.pageTitle = 'Edit Producto';
+
+      
+
       
     }else{
       //crear
@@ -106,6 +117,31 @@ export class ProdEditComponent implements OnInit {
 
 
 
+  }
+
+  listConfig(id){
+    this._colorService.colorByProduct(id).subscribe(
+      response =>{
+        this.colores = response;
+        this.color_to_cart = this.colores[0].color;
+        console.log(response);
+
+      },
+      error=>{
+
+      }
+    );
+
+    this._selectorService.selectorByProduct(id).subscribe(
+      response =>{
+        this.selectores = response;
+        console.log(response);
+
+      },
+      error=>{
+
+      }
+    );
   }
 
 
@@ -139,14 +175,14 @@ export class ProdEditComponent implements OnInit {
       // delay(100)
       )
       .subscribe( producto =>{
-
-
       if(!_id){
         return this.router.navigateByUrl(`/dasboard/producto`);
       }
-
         const { titulo, precio_antes,info_short,detalle, stock,categoria,subcategoria,
-          nombre_selector,marca,video_review,precio_ahora, isFeatured } = producto;
+          nombre_selector,marca,video_review,precio_ahora, isFeatured  } = producto;
+
+          
+
         this.productoSeleccionado = producto;
         this.productoForm.setValue({
           titulo, precio_antes,info_short,detalle, stock,categoria,subcategoria,
@@ -161,7 +197,7 @@ export class ProdEditComponent implements OnInit {
 
 
 
-  updateProducto(){debugger
+  updateProducto(){
 
     const {titulo, precio_antes,info_short,detalle, stock,categoria,subcategoria,
       nombre_selector,marca,video_review,precio_ahora, isFeatured } = this.productoForm.value;

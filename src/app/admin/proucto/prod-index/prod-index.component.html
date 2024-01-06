@@ -64,12 +64,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let producto of productos |  paginate: { itemsPerPage: count, currentPage: p }">
+                            <tr *ngFor="let producto of productos |  paginate: { itemsPerPage: count, currentPage: p } | orderBy:'createdAt, desc' ">
                                 <td class="text-center">
                                     <!-- <img [src]="producto.img | imagenPipe: 'productos'" class="img-responsive avatar" alt="{{producto.titulo}}"> -->
-                                    <img [routerLink]="['/dashboard/producto/edit',producto._id]" [src]="producto.poster | imagenPipe: 'productos'" class="avatar cursor" alt="{{producto.titulo}}">
+                                    <img [routerLink]="['/dashboard/producto/edit',producto._id]" [src]="producto.img | imagenPipe: 'productos' " class="avatar cursor" alt="{{producto.titulo}}">
                                 </td>
-                                <td>{{producto.titulo}}</td>
+                                <td>{{producto.titulo |slice:0:30}}...</td>
                                 <td>
                                     <div class="font-size-sm mb-4">
                                         <span class="badge badge-accent badge-shadow" *ngIf="producto.status == 'Edición'">{{producto.status}}</span>
@@ -152,7 +152,7 @@
 
                                 </td>
                                 <td>{{ producto.createdAt | date:'MMM d, y, h:mm:ss a' }}</td>
-                                <td>{{ producto.updated | date:'MMM d, y, h:mm:ss a' }}</td>
+                                <td>{{ producto.updatedAt | date:'MMM d, y, h:mm:ss a' }}</td>
                                 <td class="text-nowrap text-center">
 
                                     <div class="btn-group" role="group">

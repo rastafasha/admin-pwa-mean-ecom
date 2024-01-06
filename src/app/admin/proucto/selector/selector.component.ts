@@ -73,9 +73,14 @@ export class SelectorComponent implements OnInit {
 
   onSubmit(selectorForm){
 
+    let data = {
+      titulo: this.titulo,
+      producto: this.select_producto
+    }
+
 
     if(selectorForm.valid){
-      this._selectorService.crearSelector({titulo: this.titulo,producto:this.id}).subscribe(
+      this._selectorService.crearSelector(data).subscribe(
         response =>{
           this.selector
           this.titulo = '';

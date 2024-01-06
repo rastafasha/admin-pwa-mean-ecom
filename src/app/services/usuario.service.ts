@@ -50,6 +50,11 @@ export class UsuarioService {
     }
   }
 
+  getLocalStorage(){
+    localStorage.getItem('token')
+        
+  }
+
   guardarLocalStorage(token: string, menu: any){
     localStorage.setItem('token', token);
         localStorage.setItem('menu', JSON.stringify(menu));
@@ -82,7 +87,9 @@ export class UsuarioService {
       this.ngZone.run(()=>{
         this.router.navigateByUrl('/login');
       })
+
     })
+    window.location.reload();
   }
 
   validarToken(): Observable<boolean>{

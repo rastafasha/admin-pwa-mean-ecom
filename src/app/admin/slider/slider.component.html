@@ -52,7 +52,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let slider of sliders |  paginate: { itemsPerPage: count, currentPage: p }">
+                            <tr *ngFor="let slider of sliders |  paginate: { itemsPerPage: count, currentPage: p } | orderBy:'createdAt, desc'">
                                 <td class="text-center">
                                     <img [src]="slider.img | imagenPipe: 'sliders'" class="img-responsive avatar" alt="{{slider.title}}">
                                     <!-- <img (click)="abrirModal(marca)" [src]="marca.imagenUrl | imagenPipe: 'marcas'" class="avatar cursor" alt="{{marca.nombre}}"> -->

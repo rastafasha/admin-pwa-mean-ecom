@@ -54,7 +54,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let blog of blogs |  paginate: { itemsPerPage: count, currentPage: p }">
+                            <tr *ngFor="let blog of blogs |  paginate: { itemsPerPage: count, currentPage: p } | orderBy:'createdAt, desc'">
                                 <td class="text-center">
                                     <!-- <img [src]="producto.img | imagenPipe: 'productos'" class="img-responsive avatar" alt="{{producto.titulo}}"> -->
                                     <img [routerLink]="['/dashboard/blog/edit',blog._id]" [src]="blog.img | imagenPipe: 'blogs'" class="avatar cursor" alt="{{blog.titulo}}">

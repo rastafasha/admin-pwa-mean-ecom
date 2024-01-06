@@ -16,7 +16,7 @@ export class Producto{
         public subcategoria: string,
         public nombre_selector: string,
         public marca: string,
-        public isFeatured: boolean,
+        public isFeatured?: boolean,
         public img?: string,
         public _id?: string
 
@@ -30,9 +30,15 @@ export class Producto{
       return this.img;
     } else if(this.img){
       return `${base_url}/productos/${this.img}`;
+    } else if(!`${base_url}/no-image.jpg`){
+      return './assets/images/no-image.jpg';
+    }else if(!this.img){
+      return './assets/images/no-image.jpg';
     }else {
       return `${base_url}/productos/no-image.jpg`;
     }
+
+    
 
   }
 }

@@ -46,6 +46,11 @@ export class ContactoService {
     return this.http.delete(url, this.headers);
   }
 
+  getMessage(_id:string){
+    const url = `${base_url}/contactos/${_id}`;
+    return this.http.get(url, this.headers);
+  }
+
 
   cargarMensajes(desde: number = 0){
 
@@ -71,4 +76,24 @@ export class ContactoService {
         })
       )
   }
+
+  desactivar(id:string):Observable<any>{
+    const url = `${base_url}/contactos/contacto_admin/admin/desactivar/`+id;
+    return this.http.get(url,  this.headers);
+  }
+
+  atender(id:string):Observable<any>{
+    const url = `${base_url}/contactos/contacto_admin/admin/atendido/`+id;
+    return this.http.get(url,  this.headers);
+  }
+
+  getPendientes():Observable<any>{
+    const url = `${base_url}/contactos/pendientes`;
+    return this.http.get(url, this.headers);
+  }
+  getAtendidos():Observable<any>{
+    const url = `${base_url}/contactos/pendientes`;
+    return this.http.get(url, this.headers);
+  }
+
 }

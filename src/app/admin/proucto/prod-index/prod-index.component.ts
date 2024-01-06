@@ -100,7 +100,7 @@ export class ProdIndexComponent implements OnInit {
   eliminarProducto(producto: Producto){
     this.productoService.borrarProducto(producto._id)
     .subscribe( resp => {
-      this.loadCategorias();
+      this.loadProductos();
       Swal.fire('Borrado', producto.titulo, 'success')
     })
 

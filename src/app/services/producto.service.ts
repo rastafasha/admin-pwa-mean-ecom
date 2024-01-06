@@ -68,14 +68,19 @@ export class ProductoService {
     precio_ahora: string,
     isFeatured: boolean,
   }){
-    const url = `${base_url}/productos`;
+    const url = `${base_url}/productos/store`;
     return this.http.post(url, producto, this.headers);
   }
 
-  actualizarProducto(producto: Producto){
-    const url = `${base_url}/productos/${producto._id}`;
+  actualizarProducto(producto: any):Observable<any>{
+    const url = `${base_url}/productos/update/${producto._id}`;
     return this.http.put(url, producto, this.headers);
   }
+  // actualizarProducto(id:string):Observable<any>{
+  //   const url = `${base_url}/productos/`+id;
+  //   return this.http.get(url,  this.headers);
+  // }
+
 
   borrarProducto(_id:string){
     const url = `${base_url}/productos/${_id}`;

@@ -1,52 +1,51 @@
 <div class="row">
 
-    <div class="col-md-6">
+    <div class="col-md-8">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">{{pageTitle}}</h4>
                 <h6 class="card-subtitle">Ajustes</h6>
                 <button class="btn btn-outline-danger" href="javascript:void(0)" (click)="goBack()">Volver</button>
                 <form class="form p-t-20 form-horizontal form-material" [formGroup]="categoriaForm" (submit)="updateCategoria()">
-                    <div class="form-group">
-                        <label for="exampleInputuname">Titulo Categoria</label>
-                        <div class="input-group">
-
-                            <input type="text" formControlName="nombre" class="form-control" id="exampleInputuname" placeholder="nombre">
+                    <div class="row">
+                        <div class="form-group col-xs-12 col-sm-6">
+                            <label for="exampleInputuname">Titulo Categoria</label>
+                            <div class="input-group">
+    
+                                <input type="text" formControlName="nombre" class="form-control" id="exampleInputuname" placeholder="nombre">
+                            </div>
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6">
+                            <label for="exampleInputsubcategorias">Subcategoría</label>
+    
+                            <div class="col-12">
+                                <textarea name="subcategorias" class="form-control" formControlName="subcategorias" id=""></textarea>
+                                <!-- <ckeditor [editor]="Editor" formControlName="subcategorias" data="<p>Hello, world!</p>" required></ckeditor> -->
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="exampleInputsubcategorias">Subcategoría</label>
-
-                        <div class="col-12">
-                            <textarea name="subcategorias" class="form-control" formControlName="subcategorias" id=""></textarea>
-                            <!-- <ckeditor [editor]="Editor" formControlName="subcategorias" data="<p>Hello, world!</p>" required></ckeditor> -->
+                    <div class="row">
+                        <div class="form-group col-xs-12 col-sm-6 ">
+                            <label class=" col-form-label font-weight-medium" for="text-input">Mostrar en slide</label>
+                            <div class="input-group">
+                                <select class="form-control" formControlName="state_banner">
+                                <option  disabled value="">SELECCIONAR</option>
+                                <option  [value]="true">Activo</option>
+                                <option  [value]="false">Inactivo</option>
+                              </select>
+                            </div>
                         </div>
-                    </div>
-
-
-                    <div class="form-group ">
-                        <label class=" col-form-label font-weight-medium" for="text-input">Mostrar en slide</label>
-                        <div class="input-group">
-                            <select class="form-control" formControlName="state_banner">
-                            <option  disabled value="">SELECCIONAR</option>
-                            <option  [value]="true">Activo</option>
-                            <option  [value]="false">Inactivo</option>
-                          </select>
-                        </div>
-
-                    </div>
-
-
-                    <div class="form-group">
-                        <label for="icono">Icono</label>
-                        <div class="input-group">
-
-                            <select formControlName="icono" class="form-control">
-                            <option *ngFor="let ic of listIcons.iconos" value="{{ic.icono}}">
-                              {{ic.name}} <i class="{{ic.icono}}"></i>
-                            </option>
-                          </select>
-
+                        <div class="form-group col-xs-12 col-sm-6">
+                            <label for="icono">Icono</label>
+                            <div class="input-group">
+    
+                                <select formControlName="icono" class="form-control">
+                                <option *ngFor="let ic of listIcons" value="{{ic.icono}}">
+                                  {{ic.name}} <i class="{{ic.icono}}"></i>
+                                </option>
+                              </select>
+    
+                            </div>
                         </div>
                     </div>
 
@@ -57,7 +56,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6" *ngIf="categoriaSeleccionado">
+    <div class="col-md-4" *ngIf="categoriaSeleccionado">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">imagen</h4>

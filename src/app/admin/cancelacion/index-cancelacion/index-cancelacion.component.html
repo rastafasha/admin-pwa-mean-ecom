@@ -38,7 +38,7 @@
                                 <th>Detalles</th>
                             </tr>
                         </thead>
-                        <tbody *ngFor="let item of cancelaciones |  paginate: { itemsPerPage: count, currentPage: p }">
+                        <tbody *ngFor="let item of cancelaciones |  paginate: { itemsPerPage: count, currentPage: p } | orderBy:'createdAt, desc'">
                             <tr>
                                 <td>{{item.venta._id.toUpperCase()}}</td>
                                 <td>

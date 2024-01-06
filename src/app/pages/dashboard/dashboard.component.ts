@@ -285,6 +285,7 @@ export class DashboardComponent implements OnInit {
       response =>{
 
         this.last_sellers = response.data;
+        console.log(response);
       },
       error=>{
 

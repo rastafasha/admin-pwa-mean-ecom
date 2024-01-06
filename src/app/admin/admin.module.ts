@@ -54,6 +54,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ContactodetailsComponent } from './contacto/contactodetails/contactodetails.component';
 
 @NgModule({
   declarations: [
@@ -93,6 +94,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     CursoEditComponent,
     VideoIndexComponent,
     VideoEditComponent,
+    ContactodetailsComponent,
   ],
   exports: [
     MarcaIndexComponent,
@@ -131,6 +133,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     CursoEditComponent,
     VideoIndexComponent,
     VideoEditComponent,
+    ContactodetailsComponent
   ],
 
 

@@ -1,13 +1,14 @@
 <div class="row">
 
-    <div class="col-md-6">
+    <div class="col-md-8">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Editar conf</h4>
                 <h6 class="card-subtitle">Ajustes</h6>
                 <button class="btn btn-outline-danger" href="javascript:void(0)" (click)="goBack()">Volver</button>
                 <form class="form p-t-20 form-horizontal form-material" [formGroup]="confGeneralForm" (submit)="updateConfiguracion()">
-                    <div class="form-group">
+                   <div class="row">
+                    <div class="form-group col-xs-12 col-sm-6">
                         <label for="select-input">Language</label>
                         <select class="form-control " formControlName="language" required>
                             <option disabled  value="">Seleccione</option>
@@ -15,142 +16,144 @@
                             <option  value="es">Español</option>
 
                         </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputuname">Razón social</label>
-                        <div class="input-group">
-
-                            <input type="text" formControlName="titulo" class="form-control" id="exampleInputuname" placeholder="Razón social">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputsubcategorias">Copy Right</label>
-                        <div class="input-group">
-
-                            <input type="text" formControlName="cr" class="form-control" id="exampleInputsubcategorias" placeholder="Copy Right">
                         </div>
                     </div>
 
-                    <div class="form-group ">
-                        <label class="col-form-label font-weight-medium" for="text-input">Telefonos</label>
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col">
-                                    <input class="form-control" type="number" placeholder="Telefono 1" formControlName="telefono_uno">
-                                </div>
-                                <div class="col">
-                                    <input class="form-control" type="number" placeholder="Telefono 2" formControlName="telefono_dos">
-                                </div>
+                    <div class="row">
+                        <div class="form-group col-xs-12 col-sm-6">
+                            <label for="exampleInputuname">Razón social</label>
+                            <div class="input-group">
+    
+                                <input type="text" formControlName="titulo" class="form-control" id="exampleInputuname" placeholder="Razón social">
                             </div>
-
                         </div>
-                    </div>
-                    <div class="form-group ">
-                        <label class="col-form-label font-weight-medium" for="text-input">Correos</label>
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col">
-                                    <input class="form-control" type="email" placeholder="Email 1" formControlName="email_uno">
-                                </div>
-                                <div class="col">
-                                    <input class="form-control" type="email" placeholder="Email 2" formControlName="email_dos">
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="form-group ">
-                        <label class="col-form-label font-weight-medium" for="textarea-input">Dirección</label>
-                        <div class="col-md-12">
-                            <ckeditor [editor]="Editor" formControlName="direccion" data="<p>Hello, world!</p>" required></ckeditor>
-                        </div>
-                    </div>
-
-                    <div class="form-group ">
-                        <label class="col-form-label font-weight-medium" for="textarea-input">Horarios</label>
-                        <div class="col-md-12">
-                            <textarea class="form-control" id="textarea-input" rows="2" placeholder="Horarios de atención." formControlName="horarios"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="form-group ">
-                        <label class="col-form-label font-weight-medium" for="textarea-input">Mapa (iframe)</label>
-                        <div class="col-md-12">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <textarea class="form-control" id="textarea-input" placeholder="Código de google maps." formControlName="iframe_mapa"></textarea>
-                                </div>
+                        <div class="form-group col-xs-12 col-sm-6">
+                            <label for="exampleInputsubcategorias">Copy Right</label>
+                            <div class="input-group">
+    
+                                <input type="text" formControlName="cr" class="form-control" id="exampleInputsubcategorias" placeholder="Copy Right">
                             </div>
                         </div>
                     </div>
-
-                    <div class="form-group ">
-                        <label class="col-form-label font-weight-medium" for="text-input"> <i class="czi-facebook"></i> Facebook</label>
-                        <div class="input-group col-md-12 input-group">
-                            <input class="form-control" type="text" placeholder="Enlace de pagina" formControlName="facebook">
-                        </div>
-                    </div>
-                    <div class="form-group ">
-                        <label class="col-form-label font-weight-medium" for="text-input"><i class="czi-instagram"></i> Instagram</label>
-                        <div class="col-md-12 input-group ">
-                            <input class="form-control" type="text" placeholder="Enlace de pagina " formControlName="instagram">
-                        </div>
-                    </div>
-                    <div class="form-group ">
-                        <label class="col-form-label font-weight-medium" for="text-input"> <i class="czi-youtube"></i> Youtube</label>
-                        <div class="col-md-12 input-group">
-                            <input class="form-control" type="text" placeholder="Enlace de pagina " formControlName="youtube">
-                        </div>
-                    </div>
-                    <div class="form-group ">
-                        <label class="col-form-label font-weight-medium" for="text-input"> <i class="czi-twitter"></i> Twitter</label>
-
-                        <div class="col-md-12 input-group">
-                            <input class="form-control" type="text" placeholder="Enlace de pagina " formControlName="twitter">
-                        </div>
-                    </div>
-
-                    <div class="form-group ">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="select-input">Modo Sandbox?</label>
-                                <select class="form-control " formControlName="modoPaypal">
-                                    <option  disabled value="">SELECCIONAR</option>
-                                    <option  [value]="true">Activo</option>
-                                    <option  [value]="false">Inactivo</option>
-
-                                </select>
-
-                                <!-- <div class="form-check">
-                                    <input class="form-check-input" type="radio" formControlName="modoPaypal" id="exampleRadios1" value="true">
-                                    <label class="form-check-label" for="exampleRadios1">Activo</label>
+                    <div class="row">
+                        <div class="form-group col-xs-12 col-sm-6 ">
+                            <label class="col-form-label font-weight-medium" for="text-input">Telefonos</label>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col">
+                                        <input class="form-control" type="number" placeholder="Telefono 1" formControlName="telefono_uno">
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control" type="number" placeholder="Telefono 2" formControlName="telefono_dos">
+                                    </div>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" formControlName="modoPaypal" id="exampleRadios2" value="false">
-                                    <label class="form-check-label" for="exampleRadios2">Inactivo</label>
-                                </div> -->
+    
+                            </div>
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 ">
+                            <label class="col-form-label font-weight-medium" for="text-input">Correos</label>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col">
+                                        <input class="form-control" type="email" placeholder="Email 1" formControlName="email_uno">
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control" type="email" placeholder="Email 2" formControlName="email_dos">
+                                    </div>
+                                </div>
+    
                             </div>
                         </div>
                     </div>
-                    <div class="form-group ">
-                        <label class="col-form-label font-weight-medium" for="textarea-input">Cliente Paypal</label>
-                        <div class="col-md-12">
-                            <textarea class="form-control" id="textarea-input" rows="3" placeholder="CLiente id paypal." formControlName="clientePaypal"></textarea>
+                    <div class="row">
+                        <div class="form-group col-xs-12 col-sm-6 ">
+                            <label class="col-form-label font-weight-medium" for="textarea-input">Dirección</label>
+                            <div class="col-md-12">
+                                <ckeditor [editor]="Editor" formControlName="direccion" data="<p>Hello, world!</p>" required></ckeditor>
+                            </div>
+                        </div>
+    
+                        <div class="form-group col-xs-12 col-sm-6 ">
+                            <label class="col-form-label font-weight-medium" for="textarea-input">Horarios</label>
+                            <div class="col-md-12">
+                                <textarea class="form-control" id="textarea-input" rows="2" placeholder="Horarios de atención." formControlName="horarios"></textarea>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group ">
-                        <label class="col-form-label font-weight-medium" for="textarea-input">Sandbox Paypal</label>
-                        <div class="col-md-12">
-                            <textarea class="form-control" id="textarea-input" rows="3" placeholder="Sandbox paypal." formControlName="sandbox"></textarea>
+                   <div class="row">
+                        <div class="form-group col-xs-12 col-sm-6 ">
+                            <label class="col-form-label font-weight-medium" for="text-input"> <i class="czi-facebook"></i> Facebook</label>
+                            <div class="input-group col-md-12 input-group">
+                                <input class="form-control" type="text" placeholder="Enlace de pagina" formControlName="facebook">
+                            </div>
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 ">
+                            <label class="col-form-label font-weight-medium" for="text-input"><i class="czi-instagram"></i> Instagram</label>
+                            <div class="col-md-12 input-group ">
+                                <input class="form-control" type="text" placeholder="Enlace de pagina " formControlName="instagram">
+                            </div>
+                        </div>
+                   </div>
+                   <div class="row">
+                        <div class="form-group col-xs-12 col-sm-6 ">
+                            <label class="col-form-label font-weight-medium" for="text-input"> <i class="czi-youtube"></i> Youtube</label>
+                            <div class="col-md-12 input-group">
+                                <input class="form-control" type="text" placeholder="Enlace de pagina " formControlName="youtube">
+                            </div>
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 ">
+                            <label class="col-form-label font-weight-medium" for="text-input"> <i class="czi-twitter"></i> Twitter</label>
+
+                            <div class="col-md-12 input-group">
+                                <input class="form-control" type="text" placeholder="Enlace de pagina " formControlName="twitter">
+                            </div>
+                        </div>
+                   </div>
+                   
+                    <div class="row">
+                        <div class="form-group col-xs-12 col-sm-6 ">
+                            <label class="col-form-label font-weight-medium" for="textarea-input">Mapa (iframe)</label>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <textarea class="form-control" id="textarea-input" placeholder="Código de google maps." formControlName="iframe_mapa"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 ">
+                            <label for="select-input">Modo Sandbox?</label>
+                            <select class="form-control " formControlName="modoPaypal">
+                                <option  disabled value="">SELECCIONAR</option>
+                                <option  [value]="true">Activo</option>
+                                <option  [value]="false">Inactivo</option>
+
+                            </select>
                         </div>
                     </div>
-                    <div class="form-group ">
-                        <label class="col-form-label font-weight-medium" for="textarea-input">Rapid Api</label>
-                        <div class="col-md-12">
-                            <input class="form-control" type="text" placeholder="Rapid api key" formControlName="rapidapiKey">
+                    <div class="row">
+                        <div class="form-group col-xs-12 col-sm-4 ">
+                            <label class="col-form-label font-weight-medium" for="textarea-input">Cliente Paypal</label>
+                            <div class="col-md-12">
+                                <textarea class="form-control" id="textarea-input" rows="3" placeholder="CLiente id paypal." formControlName="clientePaypal"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-4 ">
+                            <label class="col-form-label font-weight-medium" for="textarea-input">Sandbox Paypal</label>
+                            <div class="col-md-12">
+                                <textarea class="form-control" id="textarea-input" rows="3" placeholder="Sandbox paypal." formControlName="sandbox"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-4 ">
+                            <label class="col-form-label font-weight-medium" for="textarea-input">Rapid Api</label>
+                            <div class="col-md-12">
+                                <input class="form-control" type="text" placeholder="Rapid api key" formControlName="rapidapiKey">
+                            </div>
                         </div>
                     </div>
+                    
+                    
+                    
 
 
                     <button type="submit" [disabled]="confGeneralForm.invalid" class="btn btn-success waves-effect waves-light m-r-10 btn-block">
@@ -160,7 +163,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6" *ngIf="congeneral">
+    <div class="col-md-4" *ngIf="congeneral">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">imagen</h4>

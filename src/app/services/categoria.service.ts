@@ -78,5 +78,15 @@ export class CategoriaService {
   }
 
 
+  desactivar(id:string):Observable<any>{
+    const url = `${base_url}/categorias/admin/desactivar/`+id;
+    return this.http.get(url,  this.headers);
+  }
+
+  activar(id:string):Observable<any>{
+    const url = `${base_url}/categorias/admin/activar/`+id;
+    return this.http.get(url,  this.headers);
+  }
+
 
 }

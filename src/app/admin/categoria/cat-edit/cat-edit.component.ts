@@ -63,9 +63,9 @@ export class CatEditComponent implements OnInit {
     this.cargar_iconos();
     
     this.validarFormulario();
+    this.activatedRoute.params.subscribe( ({id}) => this.cargarCategoria(id));
     if(this.categoriaSeleccionado){
       //actualizar
-    this.activatedRoute.params.subscribe( ({id}) => this.cargarCategoria(id));
     this.pageTitle = 'Edit Categoría';
     
     }else{
@@ -88,7 +88,7 @@ export class CatEditComponent implements OnInit {
   cargar_iconos(){
     this._iconoService.getIcons().subscribe(
       (resp:any) =>{
-        this.listIcons = resp;
+        this.listIcons = resp.iconos;
         // console.log(this.listIcons.iconos)
 
       }

@@ -67,7 +67,8 @@ export class PromoeditComponent implements OnInit {
       subtitulo: ['', Validators.required],
       end: ['', Validators.required],
       enlace: ['', Validators.required],
-      estado: ['', Validators.required]
+      estado: ['', Validators.required],
+      colorfondo: ['', ]
     })
   }
 
@@ -88,9 +89,9 @@ export class PromoeditComponent implements OnInit {
         return this.router.navigateByUrl(`/dasboard/promocion`);
       }
 
-        const { producto_title, first_title, etiqueta,subtitulo, end, enlace, estado } = promocion;
+        const { producto_title, first_title, etiqueta,subtitulo, end, enlace, estado, colorfondo } = promocion;
         this.promoSeleccionado = promocion;
-        this.promocionForm.setValue({producto_title, first_title, etiqueta,subtitulo, end, enlace, estado});
+        this.promocionForm.setValue({producto_title, first_title, etiqueta,subtitulo, end, enlace, estado, colorfondo});
 
       });
 
@@ -116,7 +117,8 @@ export class PromoeditComponent implements OnInit {
       subtitulo,
       end,
       enlace,
-      estado
+      estado,
+      colorfondo
      } = this.promocionForm.value;
 
     if(this.promoSeleccionado){

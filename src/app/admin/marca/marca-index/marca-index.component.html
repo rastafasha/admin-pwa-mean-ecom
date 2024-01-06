@@ -49,7 +49,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let marca of marcas |  paginate: { itemsPerPage: count, currentPage: p }">
+                            <tr *ngFor="let marca of marcas |  paginate: { itemsPerPage: count, currentPage: p } | orderBy:'createdAt, desc'">
                                 <td class="text-center">
                                     <img [src]="marca.img | imagenPipe: 'marcas'" class="img-responsive avatar" alt="{{marca.nombre}}">
                                     <!-- <img (click)="abrirModal(marca)" [src]="marca.imagenUrl | imagenPipe: 'marcas'" class="avatar cursor" alt="{{marca.nombre}}"> -->

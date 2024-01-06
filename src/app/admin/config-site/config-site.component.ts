@@ -35,6 +35,7 @@ export class ConfigSiteComponent implements OnInit {
   public imgTemp: any = null;
   public imagenSubir1: File;
   public imgTemp1: any = null;
+  public configCreated: any;
 
   public Editor = ClassicEditor;
 
@@ -67,20 +68,20 @@ export class ConfigSiteComponent implements OnInit {
       titulo: ['', Validators.required],
       cr: ['', Validators.required],
       telefono_uno: ['', Validators.required],
-      telefono_dos: ['', Validators.required],
+      telefono_dos: ['',],
       email_uno: ['', Validators.required],
-      email_dos: ['', Validators.required],
+      email_dos: ['', ],
       direccion: ['', Validators.required],
       horarios: ['', Validators.required],
-      iframe_mapa: ['', Validators.required],
-      facebook: ['', Validators.required],
-      instagram: ['', Validators.required],
-      youtube: ['', Validators.required],
-      twitter: ['', Validators.required],
+      iframe_mapa: ['', ],
+      facebook: ['', ],
+      instagram: ['', ],
+      youtube: ['', ],
+      twitter: ['', ],
       language: ['', Validators.required],
       modoPaypal: ['', Validators.required],
-      sandbox: ['', Validators.required],
-      clientePaypal: ['', Validators.required],
+      sandbox: ['',],
+      clientePaypal: ['',],
       rapidapiKey: [''],
     });
   }
@@ -130,13 +131,13 @@ export class ConfigSiteComponent implements OnInit {
 
 
 
-  updateConfiguracion(){
+  updateConfiguracion(){debugger
     const {titulo, cr, telefono_uno,telefono_dos, email_uno,
       email_dos, direccion, horarios, iframe_mapa, facebook,
       instagram, youtube, twitter, language, modoPaypal,
       sandbox,clientePaypal,rapidapiKey} = this.confGeneralForm.value;
 
-      if(this.congeneral._id){
+      if(this.confGeneralForm){
         //actualizar
         const data = {
           ...this.confGeneralForm.value,
@@ -149,16 +150,17 @@ export class ConfigSiteComponent implements OnInit {
           });
 
       }else{
-        return 'No hay Id';
+        // return 'No hay Id';
+        this.congeneralService.crearCongeneral(this.confGeneralForm.value)
+        .subscribe( (resp: any) =>{
+          Swal.fire('Creado', `${titulo} creado correctamente`, 'success');
+          // this.router.navigateByUrl(`/dashboard/account-settings`);
+          this.configCreated = resp;
+          console.log(resp);
+          this.ngOnInit();
+        })
       }
-      // else{
-      //   //crear
-      //   this.congeneralService.crearCongeneral(this.confGeneralForm.value)
-      //   .subscribe( (resp: any) =>{
-      //     Swal.fire('Creado', `${titulo} creado correctamente`, 'success');
-      //     this.router.navigateByUrl(`/dashboard/account-settings`);
-      //   })
-      // }
+     
 
 
   }

@@ -20,9 +20,13 @@ export class ContactoComponent implements OnInit {
   public page;
   public pageSize = 15;
   public count_cat;
+  public pendientes:any[];
+  public atendidos:any[];
 
   p: number = 1;
   count: number = 8;
+
+  option_selected:number = 3;
 
   constructor(
     private _userService: UsuarioService,
@@ -45,6 +49,9 @@ export class ContactoComponent implements OnInit {
 
       }
     );
+
+    this.getAtendidos();
+    this.getPendientes();
   }
 
   eliminarMensaje(contacto: Contacto){
@@ -55,6 +62,26 @@ export class ContactoComponent implements OnInit {
     })
 
   }
+
+  getAtendidos(){
+    this._contactoService.getAtendidos().subscribe((resp:any)=>{
+      console.log('atendidos',resp);
+      this.atendidos = resp;
+     
+    })
+  }
+  getPendientes(){
+    this._contactoService.getPendientes().subscribe((resp:any)=>{
+      console.log('pendientes',resp);
+      this.pendientes = resp;
+     
+    })
+  }
+
+  optionSelected(value:number){
+    this.option_selected = value;
+  }
+
 
 
 }
